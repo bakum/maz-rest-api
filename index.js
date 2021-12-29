@@ -7,7 +7,7 @@ const app = express();
 const bodyParser = require('body-parser');
 
 //const AuthorizationRouter = require('./authorization/routes.config');
-//const UsersRouter = require('./users/routes.config');
+const UsersRouter = require('./entities/users/routes.config');
 argv.getYargs()
 appLogger.setLogger(app, argv)
 
@@ -27,7 +27,7 @@ app.use(function (req, res, next) {
 app.disable('x-powered-by')
 app.use(bodyParser.json({limit: '50mb'}));
 //AuthorizationRouter.routesConfig(app);
-//UsersRouter.routesConfig(app);
+UsersRouter.routesConfig(app);
 
 
 app.listen(config.port, function () {

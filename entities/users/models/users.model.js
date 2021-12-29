@@ -11,17 +11,17 @@ const sequelize = new Sequelize(config.mysql.database, config.mysql.username, co
 const User = sequelize.define("User",
     {
         id: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
             allowNull: false
         },
         password: {
-            type: Sequelize.STRING[128],
+            type: Sequelize.STRING(128),
             allowNull: false
         },
         last_login: {
-            type: DataTypes.DATETIME,
+            type: DataTypes.DATE,
             allowNull: false
         },
         is_superuser: {
@@ -29,19 +29,19 @@ const User = sequelize.define("User",
             allowNull: false
         },
         username: {
-            type: Sequelize.STRING[150],
+            type: Sequelize.STRING(150),
             allowNull: false
         },
         first_name: {
-            type: Sequelize.STRING[150],
+            type: Sequelize.STRING(150),
             allowNull: false
         },
         last_name: {
-            type: Sequelize.STRING[150],
+            type: Sequelize.STRING(150),
             allowNull: false
         },
         email: {
-            type: Sequelize.STRING[254],
+            type: Sequelize.STRING(254),
             allowNull: false
         },
         is_staff: {
@@ -53,11 +53,26 @@ const User = sequelize.define("User",
             allowNull: false
         },
         date_joined: {
-            type: DataTypes.DATETIME,
+            type: DataTypes.DATE,
             allowNull: false
         }
     },
     {
         tableName: 'auth_user'
     }
-);
+)
+
+exports.list = async (perPage, page) => {
+    return await User.findAll({
+        offset: page,
+        limit: perPage
+    });
+}
+
+exports.findById = async (id) => {
+    return await User.findByPk(id)
+}
+
+exports.findByEmail = (email) => {
+    return User.findOne({where: {email: email}})
+};

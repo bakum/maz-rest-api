@@ -16,4 +16,7 @@ module.exports = {
         "username" : "mazua00_db",
         "password" : "mazua00_db"
     },
+    "api": {
+        "uri" : "/api/v2/"
+    }
 };
