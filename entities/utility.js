@@ -13,6 +13,11 @@ const page = (req) => {
     return page
 }
 
+const replaceAll = (str, find, replace) => {
+    let escapedFind = find.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+    return str.replace(new RegExp(escapedFind, 'g'), replace);
+}
+
 const getWhere = (req) => {
     let where = {}
     if (req.query) {
