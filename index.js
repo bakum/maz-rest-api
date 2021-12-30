@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 
 //const AuthorizationRouter = require('./authorization/routes.config');
 const UsersRouter = require('./entities/users/routes.config');
+const GoodsRouter = require('./entities/goods/routes.config');
 argv.getYargs()
 appLogger.setLogger(app, argv)
 
@@ -28,6 +29,7 @@ app.disable('x-powered-by')
 app.use(bodyParser.json({limit: '50mb'}));
 //AuthorizationRouter.routesConfig(app);
 UsersRouter.routesConfig(app);
+GoodsRouter.routesConfig(app);
 
 
 app.listen(config.port, function () {

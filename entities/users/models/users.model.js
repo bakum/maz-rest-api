@@ -62,11 +62,8 @@ const User = sequelize.define("User",
     }
 )
 
-exports.list = async (perPage, page) => {
-    return await User.findAll({
-        offset: page,
-        limit: perPage
-    });
+exports.list = async (options) => {
+    return await User.findAndCountAll(options);
 }
 
 exports.findById = async (id) => {

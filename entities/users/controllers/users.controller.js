@@ -1,5 +1,6 @@
 const UserModel = require('../models/users.model');
 const crypto = require('crypto');
+const utility = require("../../utility");
 
 /*exports.insert = (req, res) => {
     let salt = crypto.randomBytes(16).toString('base64');
@@ -13,25 +14,22 @@ const crypto = require('crypto');
 };*/
 
 exports.list = (req, res) => {
-    let limit = req.query.limit && req.query.limit <= 100 ? parseInt(req.query.limit) : 25;
-    let page = 0;
-    if (req.query) {
-        if (req.query.page) {
-            req.query.page = parseInt(req.query.page);
-            page = Number.isInteger(req.query.page) ? req.query.page : 0;
-        }
-    }
-    UserModel.list(limit, page)
+    let opt = utility.getOptions(req)
+    UserModel.list(opt)
         .then((result) => {
-            res.status(201).send(result);
-        })
+            res.status(201).send(result)
+        }).catch(reason => {
+            res.status(500).send(reason)
+    })
 };
 
 exports.getById = (req, res) => {
     UserModel.findById(req.params.userId)
         .then((result) => {
-            res.status(201).send(result);
-        });
+            res.status(201).send(result)
+        }).catch(reason => {
+        res.status(500).send(reason)
+    })
 };
 // exports.patchById = (req, res) => {
 //     if (req.body.password) {
