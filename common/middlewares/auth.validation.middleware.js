@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken'),
     secret = require('../config/env.config.js').jwt_secret,
-    crypto = require('crypto')
-const fs = require("fs");
-const path = require("path");
-const cert = fs.readFileSync(path.join(__dirname, '../../certs/', 'server.key'))
+    crypto = require('crypto'),
+    fs = require("fs"),
+    path = require("path"),
+    cert = fs.readFileSync(path.join(__dirname, '../../certs/', 'server.key'))
 
 exports.verifyRefreshBodyField = (req, res, next) => {
     if (req.body && req.body.refresh_token) {
