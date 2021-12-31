@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const config = require('./common/config/env.config.js')
 const argv = require('./common/services/argv.service')
 const appLogger = require('./common/services/logger.service')
