@@ -71,5 +71,10 @@ exports.findById = async (id) => {
 }
 
 exports.findByEmail = (email) => {
-    return User.findOne({where: {email: email}})
+    return User.findOne({
+        where: {
+            email: email,
+            is_active : true
+        }
+    })
 };

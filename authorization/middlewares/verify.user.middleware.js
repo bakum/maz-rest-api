@@ -1,5 +1,8 @@
 const UserModel = require('../../entities/users/models/users.model');
 const crypto = require('crypto');
+const ADMIN = require('../../common/config/env.config').permissionLevels.ADMIN;
+const NORMAL_USER = require('../../common/config/env.config').permissionLevels.NORMAL_USER;
+const PAID_USER = require('../../common/config/env.config').permissionLevels.PAID_USER
 
 exports.hasAuthValidFields = (req, res, next) => {
     let errors = [];
@@ -24,10 +27,10 @@ exports.hasAuthValidFields = (req, res, next) => {
 
 exports.isPasswordAndUserMatch = (req, res, next) => {
     UserModel.findByEmail(req.body.email)
-        .then((user)=>{
-            if(!user.dataValues){
+        .then((user) => {
+            if (!user.dataValues) {
                 res.status(404).send({});
-            }else{
+            } else {
                 let passwordFields = user.dataValues.password.split('$');
                 //let salt = passwordFields[1];
                 //let hash = crypto.createHmac('sha512', salt).update(req.body.password).digest("base64");
@@ -35,7 +38,8 @@ exports.isPasswordAndUserMatch = (req, res, next) => {
                     req.body = {
                         userId: user.dataValues.id,
                         email: user.dataValues.email,
-                        //permissionLevel: user[0].permissionLevel,
+                        username: user.dataValues.username,
+                        permissionLevel: (user.dataValues.is_superuser ? ADMIN : (user.dataValues.is_staff ? PAID_USER : NORMAL_USER)),
                         provider: 'email',
                         name: user.dataValues.first_name + ' ' + user.dataValues.last_name,
                     };
@@ -45,9 +49,9 @@ exports.isPasswordAndUserMatch = (req, res, next) => {
                 }
             }
         }).catch(reason => {
-            return res.status(400).send({
-                error : 'No user found',
-                reason : reason
-            })
+        return res.status(400).send({
+            error: 'No user found',
+            reason: reason
+        })
     });
 };
