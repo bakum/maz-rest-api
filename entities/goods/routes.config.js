@@ -1,19 +1,20 @@
 const GoodsController = require('./controllers/goods.controller');
 const config = require('../../common/config/env.config');
+const ValidationMiddleware = require('../../common/middlewares/auth.validation.middleware');
 
 exports.routesConfig = function (app) {
     app.get(`${config.api.uri}goods`, [
-        // ValidationMiddleware.validJWTNeeded,
+        ValidationMiddleware.validJWTNeeded,
         // PermissionMiddleware.minimumPermissionLevelRequired(PAID),
         GoodsController.listOfCatalog
     ]);
     app.get(`${config.api.uri}groups`, [
-        // ValidationMiddleware.validJWTNeeded,
+        ValidationMiddleware.validJWTNeeded,
         // PermissionMiddleware.minimumPermissionLevelRequired(PAID),
         GoodsController.listOfGroups
     ]);
     app.get(`${config.api.uri}price`, [
-        // ValidationMiddleware.validJWTNeeded,
+        ValidationMiddleware.validJWTNeeded,
         // PermissionMiddleware.minimumPermissionLevelRequired(PAID),
         GoodsController.listOfGoods
     ]);
