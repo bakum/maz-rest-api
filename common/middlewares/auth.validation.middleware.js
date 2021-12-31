@@ -1,6 +1,9 @@
 const jwt = require('jsonwebtoken'),
     secret = require('../config/env.config.js').jwt_secret,
-    crypto = require('crypto');
+    crypto = require('crypto')
+const fs = require("fs");
+const path = require("path");
+const cert = fs.readFileSync(path.join(__dirname, '../../certs/', 'server.key'))
 
 exports.verifyRefreshBodyField = (req, res, next) => {
     if (req.body && req.body.refresh_token) {
@@ -30,7 +33,7 @@ exports.validJWTNeeded = (req, res, next) => {
             if (authorization[0] !== 'Bearer') {
                 return res.status(401).send();
             } else {
-                req.jwt = jwt.verify(authorization[1], secret);
+                req.jwt = jwt.verify(authorization[1], cert);
                 return next();
             }
 

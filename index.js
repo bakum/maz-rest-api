@@ -6,7 +6,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 
-//const AuthorizationRouter = require('./authorization/routes.config');
+const AuthorizationRouter = require('./authorization/routes.config');
 const UsersRouter = require('./entities/users/routes.config');
 const GoodsRouter = require('./entities/goods/routes.config');
 argv.getYargs()
@@ -27,7 +27,7 @@ app.use(function (req, res, next) {
 
 app.disable('x-powered-by')
 app.use(bodyParser.json({limit: '50mb'}));
-//AuthorizationRouter.routesConfig(app);
+AuthorizationRouter.routesConfig(app);
 UsersRouter.routesConfig(app);
 GoodsRouter.routesConfig(app);
 

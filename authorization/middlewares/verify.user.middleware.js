@@ -25,24 +25,29 @@ exports.hasAuthValidFields = (req, res, next) => {
 exports.isPasswordAndUserMatch = (req, res, next) => {
     UserModel.findByEmail(req.body.email)
         .then((user)=>{
-            if(!user[0]){
+            if(!user.dataValues){
                 res.status(404).send({});
             }else{
-                let passwordFields = user[0].password.split('$');
-                let salt = passwordFields[0];
-                let hash = crypto.createHmac('sha512', salt).update(req.body.password).digest("base64");
-                if (hash === passwordFields[1]) {
+                let passwordFields = user.dataValues.password.split('$');
+                //let salt = passwordFields[1];
+                //let hash = crypto.createHmac('sha256', salt).update(req.body.password).digest("base64");
+                if (req.body.password === passwordFields[3]) {
                     req.body = {
-                        userId: user[0]._id,
-                        email: user[0].email,
-                        permissionLevel: user[0].permissionLevel,
+                        userId: user.dataValues.id,
+                        email: user.dataValues.email,
+                        //permissionLevel: user[0].permissionLevel,
                         provider: 'email',
-                        name: user[0].firstName + ' ' + user[0].lastName,
+                        name: user.dataValues.first_name + ' ' + user.dataValues.last_name,
                     };
                     return next();
                 } else {
                     return res.status(400).send({errors: ['Invalid e-mail or password']});
                 }
             }
-        });
+        }).catch(reason => {
+            return res.status(400).send({
+                error : 'No user found',
+                reason : reason
+            })
+    });
 };
