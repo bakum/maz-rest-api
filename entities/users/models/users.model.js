@@ -65,7 +65,7 @@ exports.list = (options) => {
 exports.findById = (id) => {
     return connection.list(User,{
         where: {
-            id: id
+            id: parseInt(id)
         }
     })
 }
