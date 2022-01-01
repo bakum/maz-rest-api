@@ -34,7 +34,7 @@ exports.onlySameUserOrAdminCanDoThisAction = (req, res, next) => {
 exports.sameUserCantDoThisAction = (req, res, next) => {
     let userId = req.jwt.userId;
 
-    if (parseInt(req.params.userId) !== userId) {
+    if (req.params && req.params.userId && userId === parseInt(req.params.userId)) {
         return next();
     } else {
         return res.status(400).send();
