@@ -6,7 +6,7 @@
   "scripts": {
     "ssl": "openssl req -nodes -x509 -newkey rsa:2048 -keyout certs/server.key -out certs/server.crt -days 3650",
     "test": "jest --detectOpenHandles",
-    "start": "node index.js --production"
+    "start": "node index.js --env production"
   },
   "jest": {
     "testEnvironment": "node",
