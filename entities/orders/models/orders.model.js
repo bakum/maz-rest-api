@@ -1,14 +1,8 @@
 const config = require('../../../common/config/env.config');
-const {Sequelize, Model, DataTypes} = require('sequelize');
-const sequelize = new Sequelize(config.mysql.database, config.mysql.username, config.mysql.password, {
-    host: config.mysql.host,
-    dialect: "mysql",
-    define: {
-        timestamps: false
-    }
-})
+const {Sequelize, DataTypes} = require('sequelize');
+const db = require('../../../common/services/sequelize.service').db
 
-const Orders = sequelize.define("Orders",
+const Orders = db.define("Orders",
     {
         id: {
             type: DataTypes.BIGINT,
@@ -78,7 +72,7 @@ const Orders = sequelize.define("Orders",
     }
 )
 
-const OrderItems = sequelize.define("OrderItems",
+const OrderItems = db.define("OrderItems",
     {
         id: {
             type: DataTypes.BIGINT,

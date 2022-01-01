@@ -1,14 +1,8 @@
 const config = require('../../../common/config/env.config');
-const {Sequelize, Model, DataTypes} = require('sequelize');
-const sequelize = new Sequelize(config.mysql.database, config.mysql.username, config.mysql.password, {
-    host: config.mysql.host,
-    dialect: "mysql",
-    define: {
-        timestamps: false
-    }
-});
+const {Sequelize, DataTypes} = require('sequelize');
+const db = require('../../../common/services/sequelize.service').db
 
-const User = sequelize.define("User",
+const User = db.define("User",
     {
         id: {
             type: DataTypes.INTEGER,
