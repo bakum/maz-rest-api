@@ -63,6 +63,14 @@ const Orders = sequelize.define("Orders",
         user_id: {
             type: DataTypes.INTEGER,
             allowNull: false
+        },
+        sync: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false
+        },
+        uuid: {
+            type: Sequelize.STRING(36),
+            allowNull: true
         }
     },
     {
