@@ -1,8 +1,9 @@
-const config = require('../../../common/config/env.config');
-const {Sequelize, DataTypes} = require('sequelize');
-const db = require('../../../common/services/sequelize.service').db
+const {Sequelize, DataTypes} = require('sequelize'),
+    DB = require('../../../common/services/sequelize.service').db,
+    Users = require('../../users/models/users.model').user,
+    Catalog = require('../../goods/models/goods.model').catalog
 
-const Orders = db.define("Orders",
+const Orders = DB.define("Orders",
     {
         id: {
             type: DataTypes.BIGINT,
@@ -72,7 +73,7 @@ const Orders = db.define("Orders",
     }
 )
 
-const OrderItems = db.define("OrderItems",
+const OrderItems = DB.define("OrderItems",
     {
         id: {
             type: DataTypes.BIGINT,
@@ -115,6 +116,12 @@ const OrderItems = db.define("OrderItems",
 )
 OrderItems.belongsTo(Orders, {foreignKey: 'order_id'})
 Orders.hasMany(OrderItems, {foreignKey: 'order_id'})
+
+Orders.belongsTo(Users, {foreignKey: 'user_id'})
+Users.hasMany(Orders,{foreignKey: 'user_id'})
+
+OrderItems.belongsTo(Catalog, {foreignKey: 'product_id'})
+Catalog.hasMany(OrderItems,{foreignKey: 'product_id'})
 
 exports.listOfOrders = async (options) => {
     return await Orders.findAndCountAll(options);

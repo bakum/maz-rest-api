@@ -11,6 +11,25 @@ exports.listOfCatalog = (req, res) => {
     })
 }
 
+exports.updateOrCreateCatalog = (req, res) => {
+    let where = utility.where(req)
+    where.uuid = req.body.uuid
+    GoodsModel.updateOrCreateCatalog(where,req.body).then((result) => {
+        res.status(200).send(result)
+    }).catch(reason => {
+        res.status(500).send(reason)
+    })
+}
+
+exports.deleteCatalog = (req, res) => {
+    let where = utility.where(req)
+    GoodsModel.deleteCatalog(where).then(result => {
+        res.sendStatus(204)
+    }).catch(reason => {
+        res.status(500).send(reason)
+    })
+}
+
 exports.listOfGoods = (req, res) => {
     let opt= utility.getOptions(req)
     GoodsModel.listOfGoods(opt)

@@ -1,8 +1,8 @@
-const config = require('../../../common/config/env.config');
-const {Sequelize, DataTypes} = require('sequelize');
-const db = require('../../../common/services/sequelize.service').db
+const {Sequelize, DataTypes} = require('sequelize'),
+    connection = require('../../../common/services/sequelize.service'),
+    DB = connection.db
 
-const Catalog = db.define("Catalog",
+const Catalog = DB.define("Catalog",
     {
         id: {
             type: DataTypes.BIGINT,
@@ -153,7 +153,15 @@ const Catalog = db.define("Catalog",
 exports.listOfCatalog = async (options) => {
     return await Catalog.findAndCountAll(options);
 }
-const CatalogGoods = db.define("CatalogGoods",
+exports.updateOrCreateCatalog = (where, newItem) => {
+    return connection.updateOrCreate(Catalog, where, newItem)
+}
+exports.deleteCatalog = (where) => {
+    return connection.delete(Catalog, where)
+}
+exports.catalog = Catalog
+
+const CatalogGoods = DB.define("CatalogGoods",
     {
         id: {
             type: DataTypes.BIGINT,
@@ -202,7 +210,7 @@ exports.listOfGoods = async (options) => {
     return await CatalogGoods.findAndCountAll(options);
 }
 
-const CatalogGroup = db.define("CatalogGroup",
+const CatalogGroup = DB.define("CatalogGroup",
     {
         id: {
             type: DataTypes.BIGINT,

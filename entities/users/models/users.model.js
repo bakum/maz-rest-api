@@ -1,8 +1,7 @@
-const config = require('../../../common/config/env.config');
 const {Sequelize, DataTypes} = require('sequelize');
-const db = require('../../../common/services/sequelize.service').db
+const DB = require('../../../common/services/sequelize.service').db
 
-const User = db.define("User",
+const User = DB.define("User",
     {
         id: {
             type: DataTypes.INTEGER,
@@ -56,6 +55,8 @@ const User = db.define("User",
     }
 )
 
+exports.user = User
+
 exports.list = async (options) => {
     return await User.findAndCountAll(options);
 }
@@ -71,4 +72,4 @@ exports.findByEmail = (email) => {
             is_active : true
         }
     })
-};
+}

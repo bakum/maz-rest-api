@@ -28,6 +28,7 @@ const getWhere = (req) => {
     }
     return where
 }
+exports.where = getWhere
 
 exports.getOptions = (req) => {
     let options = {}
