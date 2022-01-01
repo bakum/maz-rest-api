@@ -1,5 +1,6 @@
 const {Sequelize, DataTypes} = require('sequelize'),
-    DB = require('../../../common/services/sequelize.service').db,
+    connection = require('../../../common/services/sequelize.service'),
+    DB = connection.db,
     Users = require('../../users/models/users.model').user,
     Catalog = require('../../goods/models/goods.model').catalog
 
@@ -123,6 +124,12 @@ Users.hasMany(Orders,{foreignKey: 'user_id'})
 OrderItems.belongsTo(Catalog, {foreignKey: 'product_id'})
 Catalog.hasMany(OrderItems,{foreignKey: 'product_id'})
 
-exports.listOfOrders = async (options) => {
-    return await Orders.findAndCountAll(options);
+exports.listOfOrders = (options) => {
+    return connection.list(Orders,options)
+}
+exports.updateOrCreateOrder = (where, newItem) => {
+    return connection.updateOrCreate(Orders, where, newItem)
+}
+exports.deleteOrder = (where) => {
+    return connection.delete(Orders, where)
 }

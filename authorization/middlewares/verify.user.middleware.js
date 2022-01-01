@@ -27,21 +27,21 @@ exports.hasAuthValidFields = (req, res, next) => {
 
 exports.isPasswordAndUserMatch = (req, res, next) => {
     UserModel.findByEmail(req.body.email)
-        .then((user) => {
-            if (!user.dataValues) {
+        .then((data) => {
+            if (data.count === 0) {
                 res.status(404).send({});
             } else {
-                let passwordFields = user.dataValues.password.split('$');
+                let passwordFields = data.rows[0].dataValues.password.split('$');
                 //let salt = passwordFields[1];
                 //let hash = crypto.createHmac('sha512', salt).update(req.body.password).digest("base64");
                 if (req.body.password === passwordFields[3]) {
                     req.body = {
-                        userId: user.dataValues.id,
-                        email: user.dataValues.email,
-                        username: user.dataValues.username,
-                        permissionLevel: (user.dataValues.is_superuser ? ADMIN : (user.dataValues.is_staff ? PAID_USER : NORMAL_USER)),
+                        userId: data.rows[0].dataValues.id,
+                        email: data.rows[0].dataValues.email,
+                        username: data.rows[0].dataValues.username,
+                        permissionLevel: (data.rows[0].dataValues.is_superuser ? ADMIN : (data.rows[0].dataValues.is_staff ? PAID_USER : NORMAL_USER)),
                         provider: 'email',
-                        name: user.dataValues.first_name + ' ' + user.dataValues.last_name,
+                        name: data.rows[0].dataValues.first_name + ' ' + data.rows[0].dataValues.last_name,
                     };
                     return next();
                 } else {

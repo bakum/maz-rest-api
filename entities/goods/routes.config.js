@@ -27,9 +27,29 @@ exports.routesConfig = function (app) {
         PermissionMiddleware.minimumPermissionLevelRequired(PAID),
         GoodsController.listOfGroups
     ]);
+    app.post(`${config.api.uri}groups`, [
+        ValidationMiddleware.validJWTNeeded,
+        PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
+        GoodsController.updateOrCreateGroup
+    ]);
+    app.delete(`${config.api.uri}groups`, [
+        ValidationMiddleware.validJWTNeeded,
+        PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
+        GoodsController.deleteGroup
+    ]);
     app.get(`${config.api.uri}price`, [
         ValidationMiddleware.validJWTNeeded,
         PermissionMiddleware.minimumPermissionLevelRequired(PAID),
         GoodsController.listOfGoods
+    ]);
+    app.post(`${config.api.uri}price`, [
+        ValidationMiddleware.validJWTNeeded,
+        PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
+        GoodsController.updateOrCreateGoods
+    ]);
+    app.delete(`${config.api.uri}price`, [
+        ValidationMiddleware.validJWTNeeded,
+        PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
+        GoodsController.deleteGoods
     ]);
 }

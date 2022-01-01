@@ -1,5 +1,6 @@
-const {Sequelize, DataTypes} = require('sequelize');
-const DB = require('../../../common/services/sequelize.service').db
+const {Sequelize, DataTypes} = require('sequelize'),
+    connection = require('../../../common/services/sequelize.service'),
+    DB = connection.db
 
 const User = DB.define("User",
     {
@@ -57,16 +58,20 @@ const User = DB.define("User",
 
 exports.user = User
 
-exports.list = async (options) => {
-    return await User.findAndCountAll(options);
+exports.list = (options) => {
+    return connection.list(User,options)
 }
 
-exports.findById = async (id) => {
-    return await User.findByPk(id)
+exports.findById = (id) => {
+    return connection.list(User,{
+        where: {
+            id: id
+        }
+    })
 }
 
 exports.findByEmail = (email) => {
-    return User.findOne({
+    return connection.list(User,{
         where: {
             email: email,
             is_active : true

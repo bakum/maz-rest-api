@@ -150,8 +150,8 @@ const Catalog = DB.define("Catalog",
     {
         tableName: 'catalog'
     })
-exports.listOfCatalog = async (options) => {
-    return await Catalog.findAndCountAll(options);
+exports.listOfCatalog = (options) => {
+    return connection.list(Catalog,options)
 }
 exports.updateOrCreateCatalog = (where, newItem) => {
     return connection.updateOrCreate(Catalog, where, newItem)
@@ -206,8 +206,14 @@ const CatalogGoods = DB.define("CatalogGoods",
         tableName: 'catalog_goods'
     }
 )
-exports.listOfGoods = async (options) => {
-    return await CatalogGoods.findAndCountAll(options);
+exports.listOfGoods = (options) => {
+    return connection.list(CatalogGoods,options)
+}
+exports.updateOrCreateGoods = (where, newItem) => {
+    return connection.updateOrCreate(CatalogGoods, where, newItem)
+}
+exports.deleteGoods = (where) => {
+    return connection.delete(CatalogGoods, where)
 }
 
 const CatalogGroup = DB.define("CatalogGroup",
@@ -328,6 +334,12 @@ const CatalogGroup = DB.define("CatalogGroup",
     }
 )
 
-exports.listOfGroups = async (options) => {
-    return await CatalogGroup.findAndCountAll(options);
+exports.listOfGroups = (options) => {
+    return connection.list(CatalogGroup,options)
+}
+exports.updateOrCreateGroup = (where, newItem) => {
+    return connection.updateOrCreate(CatalogGroup, where, newItem)
+}
+exports.deleteGroup = (where) => {
+    return connection.delete(CatalogGroup, where)
 }

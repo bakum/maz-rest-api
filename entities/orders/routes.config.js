@@ -12,4 +12,14 @@ exports.routesConfig = function (app) {
         PermissionMiddleware.minimumPermissionLevelRequired(PAID),
         OrdersController.listOfOrders
     ]);
+    app.post(`${config.api.uri}orders`, [
+        ValidationMiddleware.validJWTNeeded,
+        PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
+        OrdersController.updateOrCreateOrder
+    ]);
+    app.delete(`${config.api.uri}orders`, [
+        ValidationMiddleware.validJWTNeeded,
+        PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
+        OrdersController.deleteOrder
+    ]);
 }
