@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken'),
-    secret = require('../config/env.config')['jwt_secret'];
+    secret = require('../config/env.config')['jwt_secret'],
+    permError = {error: 'Permission error'}
 
 const ADMIN_PERMISSION = parseInt(require('../config/env.config').permissionLevels.ADMIN);
 
@@ -10,7 +11,7 @@ exports.minimumPermissionLevelRequired = (required_permission_level) => {
         if (user_permission_level >= required_permission_level) {
             return next();
         } else {
-            return res.status(403).send();
+            return res.status(403).send(permError);
         }
     };
 };
@@ -25,7 +26,7 @@ exports.onlySameUserOrAdminCanDoThisAction = (req, res, next) => {
         if (user_permission_level === ADMIN_PERMISSION) {
             return next();
         } else {
-            return res.status(403).send();
+            return res.status(403).send(permError);
         }
     }
 

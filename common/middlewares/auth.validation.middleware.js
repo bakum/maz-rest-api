@@ -3,7 +3,9 @@ const jwt = require('jsonwebtoken'),
     crypto = require('crypto'),
     fs = require("fs"),
     path = require("path"),
-    cert = fs.readFileSync(path.join(__dirname, '../../certs/', 'server.key'))
+    cert = fs.readFileSync(path.join(__dirname, '../../certs/', 'server.key')),
+    AuthError = {error: "Authorization failed"},
+    permError = {error: 'Permission error'}
 
 exports.verifyRefreshBodyField = (req, res, next) => {
     if (req.body && req.body.refresh_token) {
@@ -31,16 +33,16 @@ exports.validJWTNeeded = (req, res, next) => {
         try {
             let authorization = req.headers['authorization'].split(' ');
             if (authorization[0] !== 'Bearer') {
-                return res.status(401).send();
+                return res.status(401).send(AuthError);
             } else {
                 req.jwt = jwt.verify(authorization[1], cert);
                 return next();
             }
 
         } catch (err) {
-            return res.status(403).send();
+            return res.status(403).send(permError);
         }
     } else {
-        return res.status(401).send();
+        return res.status(401).send(AuthError);
     }
 };
