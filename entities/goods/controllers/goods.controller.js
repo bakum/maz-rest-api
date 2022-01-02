@@ -2,7 +2,7 @@ const GoodsModel = require('../models/goods.model'),
     utility = require('../../utility')
 
 exports.listOfCatalog = (req, res) => {
-    let opt= utility.getOptions(req)
+    let opt = utility.getOptions(req)
     GoodsModel.listOfCatalog(opt)
         .then((result) => {
             res.status(200).send(result)
@@ -14,7 +14,7 @@ exports.listOfCatalog = (req, res) => {
 exports.updateOrCreateCatalog = (req, res) => {
     let where = utility.where(req)
     //where.uuid = req.body.uuid
-    GoodsModel.updateOrCreateCatalog(where,req.body).then((result) => {
+    GoodsModel.updateOrCreateCatalog(where, req.body).then((result) => {
         res.status(200).send(result)
     }).catch(reason => {
         res.status(500).send(reason)
@@ -31,7 +31,7 @@ exports.deleteCatalog = (req, res) => {
 }
 
 exports.listOfGoods = (req, res) => {
-    let opt= utility.getOptions(req)
+    let opt = utility.getOptions(req)
     GoodsModel.listOfGoods(opt)
         .then((result) => {
             res.status(200).send(result)
@@ -42,7 +42,7 @@ exports.listOfGoods = (req, res) => {
 exports.updateOrCreateGoods = (req, res) => {
     let where = utility.where(req)
     //where.uuid = req.body.uuid
-    GoodsModel.updateOrCreateGoods(where,req.body).then((result) => {
+    GoodsModel.updateOrCreateGoods(where, req.body).then((result) => {
         res.status(200).send(result)
     }).catch(reason => {
         res.status(500).send(reason)
@@ -59,7 +59,7 @@ exports.deleteGoods = (req, res) => {
 }
 
 exports.listOfGroups = (req, res) => {
-    let opt= utility.getOptions(req)
+    let opt = utility.getOptions(req)
     GoodsModel.listOfGroups(opt)
         .then((result) => {
             res.status(200).send(result)
@@ -70,7 +70,7 @@ exports.listOfGroups = (req, res) => {
 exports.updateOrCreateGroup = (req, res) => {
     let where = utility.where(req)
     //where.uuid = req.body.uuid
-    GoodsModel.updateOrCreateGroup(where,req.body).then((result) => {
+    GoodsModel.updateOrCreateGroup(where, req.body).then((result) => {
         res.status(200).send(result)
     }).catch(reason => {
         res.status(500).send(reason)
