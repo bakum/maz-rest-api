@@ -13,7 +13,7 @@ exports.listOfOrders = (req, res) => {
 }
 exports.updateOrCreateOrder = (req, res) => {
     let where = utility.where(req)
-    where.uuid = req.body.uuid
+    //where.uuid = req.body.uuid
     OrdersModel.updateOrCreateOrder(where,req.body).then((result) => {
         res.status(200).send(result)
     }).catch(reason => {

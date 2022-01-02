@@ -13,7 +13,7 @@ exports.listOfCatalog = (req, res) => {
 
 exports.updateOrCreateCatalog = (req, res) => {
     let where = utility.where(req)
-    where.uuid = req.body.uuid
+    //where.uuid = req.body.uuid
     GoodsModel.updateOrCreateCatalog(where,req.body).then((result) => {
         res.status(200).send(result)
     }).catch(reason => {
@@ -41,7 +41,7 @@ exports.listOfGoods = (req, res) => {
 }
 exports.updateOrCreateGoods = (req, res) => {
     let where = utility.where(req)
-    where.uuid = req.body.uuid
+    //where.uuid = req.body.uuid
     GoodsModel.updateOrCreateGoods(where,req.body).then((result) => {
         res.status(200).send(result)
     }).catch(reason => {
@@ -69,7 +69,7 @@ exports.listOfGroups = (req, res) => {
 }
 exports.updateOrCreateGroup = (req, res) => {
     let where = utility.where(req)
-    where.uuid = req.body.uuid
+    //where.uuid = req.body.uuid
     GoodsModel.updateOrCreateGroup(where,req.body).then((result) => {
         res.status(200).send(result)
     }).catch(reason => {
