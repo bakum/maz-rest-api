@@ -109,6 +109,10 @@ const OrderItems = DB.define("OrderItems",
         order_id:{
             type: DataTypes.BIGINT,
             allowNull: true
+        },
+        sync: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false
         }
     },
     {
