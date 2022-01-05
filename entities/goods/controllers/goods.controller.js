@@ -103,8 +103,7 @@ exports.FileUpload = (req, res) => {
                 return res.status(400).send({error: `There is no record for uuid - ${req.params.ids}`})
             }
             let file = path.join(pathUpload, req.files.file.name);
-            let imgval = req.params.whatis==='catalog' ? GoodsModel.goods_img : GoodsModel.group_img
-            imgval += req.files.file.name
+            let imgval = GoodsModel.getImgPathStr(req.params.whatis, req.files.file.name)
             // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
             let uplFl = req.files.file;
 

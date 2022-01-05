@@ -152,8 +152,8 @@ const Catalog = DB.define("Catalog",
     {
         tableName: 'catalog'
     })
-exports.goods_img = goods_img_store_to
-exports.group_img = group_img_store_to
+// exports.goods_img = goods_img_store_to
+// exports.group_img = group_img_store_to
 
 exports.listOfCatalog = (options) => {
     return connection.list(Catalog, options)
@@ -165,9 +165,18 @@ exports.deleteCatalog = (where) => {
     return connection.delete(Catalog, where)
 }
 
+exports.getImgPathStr = (modelname, filename) => {
+    let imgval = modelname === 'catalog' ? goods_img_store_to : group_img_store_to
+    imgval += filename
+    return imgval
+}
+
+const getModelFromStr = (modelname) => {
+    return modelname === 'catalog' ? Catalog :  modelname === 'group' ? CatalogGroup : null
+}
+
 exports.findByUUID = (modelname, uuid) => {
-    let model = modelname === 'catalog' ? Catalog : CatalogGroup
-    return connection.list(model, {
+    return connection.list(getModelFromStr(modelname), {
         where: {
             uuid: uuid
         }
