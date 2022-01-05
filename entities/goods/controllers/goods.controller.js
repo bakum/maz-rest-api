@@ -106,7 +106,6 @@ exports.FileUpload = (req, res) => {
             let imgval = GoodsModel.getImgPathStr(req.params.whatis, req.files.file.name)
             // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
             let uplFl = req.files.file;
-
             // Use the mv() method to place the file somewhere on your server
             uplFl.mv(file).then(result1 => {
                 let item = result.rows[0]

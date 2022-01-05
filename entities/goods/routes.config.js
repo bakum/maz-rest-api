@@ -52,7 +52,7 @@ exports.routesConfig = function (app) {
         PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
         GoodsController.deleteGoods
     ]);
-    app.post(`${config.api.uri}:whatis/:ids/:img/uploads`, [
+    app.post(`${config.api.uri}:whatis/:ids/:img/upload`, [
         ValidationMiddleware.validJWTNeeded,
         PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
         GoodsController.FileUpload
