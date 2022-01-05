@@ -27,10 +27,6 @@ const filterInt = (value) => {
 const parseObj = (obj) => {
     let parsed = {}
     for (let key in obj) {
-        // if (key === 'uuid') {
-        //     parsed[key] = obj[key]
-        //     continue
-        // }
         parsed[key] = isNaN(filterInt(obj[key])) ? obj[key] : parseInt(obj[key])
     }
     return parsed
