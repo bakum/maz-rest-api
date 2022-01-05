@@ -1,5 +1,6 @@
 module.exports = {
     "port": 3600,
+    "portSSL": 3601,
     "appEndpoint": "http://localhost:3600",
     "apiEndpoint": "http://localhost:3600",
     "jwt_secret": "myS33!!creeeT",
@@ -15,6 +16,9 @@ module.exports = {
         "database" : "mazua00_db",
         "username" : "mazua00_db",
         "password" : "mazua00_db"
+    },
+    "production": {
+        "useSSL": true
     },
     "api": {
         "uri" : "/api/v2/"
