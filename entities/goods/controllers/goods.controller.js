@@ -90,16 +90,35 @@ exports.deleteGroup = (req, res) => {
 
 exports.FileUpload = (req, res) => {
     if (!req.files || Object.keys(req.files).length === 0) {
-        return res.status(400).send('No files were uploaded.');
+        return res.status(400).send({error: 'No files were uploaded.'});
     }
-    let file = path.join(pathUpload, req.files.file.name);
-    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-    let uplFl = req.files.file;
 
-    // Use the mv() method to place the file somewhere on your server
-    uplFl.mv(file).then(result => {
-        res.send('File uploaded!');
-    }).catch(err => {
-        res.status(500).send(err);
-    })
+    if (req.params.whatis !== 'catalog' && req.params.whatis !== 'group') {
+        return res.status(400).send({error: `I do not know what to do with it - ${req.params.whatis}`})
+    }
+
+    GoodsModel.findByUUID(req.params.whatis, req.params.ids)
+        .then(result => {
+            if (result.count === 0) {
+                return res.status(400).send({error: `There is no record for uuid - ${req.params.ids}`})
+            }
+            let file = path.join(pathUpload, req.files.file.name);
+            let imgval = req.params.whatis==='catalog' ? GoodsModel.goods_img : GoodsModel.group_img
+            imgval += req.files.file.name
+            // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+            let uplFl = req.files.file;
+
+            // Use the mv() method to place the file somewhere on your server
+            uplFl.mv(file).then(result1 => {
+                let item = result.rows[0]
+                item[req.params.img] = imgval
+                res.send(result1);
+            }).catch(err => {
+                res.status(500).send(err);
+            })
+        })
+        .catch(err => {
+            return res.status(400).send(err)
+        })
+
 }

@@ -156,13 +156,22 @@ exports.goods_img = goods_img_store_to
 exports.group_img = group_img_store_to
 
 exports.listOfCatalog = (options) => {
-    return connection.list(Catalog,options)
+    return connection.list(Catalog, options)
 }
 exports.updateOrCreateCatalog = (where, newItem) => {
     return connection.updateOrCreate(Catalog, where, newItem)
 }
 exports.deleteCatalog = (where) => {
     return connection.delete(Catalog, where)
+}
+
+exports.findByUUID = (modelname, uuid) => {
+    let model = modelname === 'catalog' ? Catalog : CatalogGroup
+    return connection.list(model, {
+        where: {
+            uuid: uuid
+        }
+    })
 }
 exports.catalog = Catalog
 
@@ -212,7 +221,7 @@ const CatalogGoods = DB.define("CatalogGoods",
     }
 )
 exports.listOfGoods = (options) => {
-    return connection.list(CatalogGoods,options)
+    return connection.list(CatalogGoods, options)
 }
 exports.updateOrCreateGoods = (where, newItem) => {
     return connection.updateOrCreate(CatalogGoods, where, newItem)
@@ -338,9 +347,9 @@ const CatalogGroup = DB.define("CatalogGroup",
         tableName: 'catalog_group'
     }
 )
-
+exports.group = CatalogGroup
 exports.listOfGroups = (options) => {
-    return connection.list(CatalogGroup,options)
+    return connection.list(CatalogGroup, options)
 }
 exports.updateOrCreateGroup = (where, newItem) => {
     return connection.updateOrCreate(CatalogGroup, where, newItem)

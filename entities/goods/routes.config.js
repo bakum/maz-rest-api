@@ -17,11 +17,6 @@ exports.routesConfig = function (app) {
         PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
         GoodsController.updateOrCreateCatalog
     ]);
-    app.post(`${config.api.uri}goods/:ids/:img/uploads`, [
-        ValidationMiddleware.validJWTNeeded,
-        PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
-        GoodsController.FileUpload
-    ]);
     app.delete(`${config.api.uri}goods`, [
         ValidationMiddleware.validJWTNeeded,
         PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
@@ -36,11 +31,6 @@ exports.routesConfig = function (app) {
         ValidationMiddleware.validJWTNeeded,
         PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
         GoodsController.updateOrCreateGroup
-    ]);
-    app.post(`${config.api.uri}groups/:ids/:img/uploads`, [
-        ValidationMiddleware.validJWTNeeded,
-        PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
-        GoodsController.FileUpload
     ]);
     app.delete(`${config.api.uri}groups`, [
         ValidationMiddleware.validJWTNeeded,
@@ -61,5 +51,10 @@ exports.routesConfig = function (app) {
         ValidationMiddleware.validJWTNeeded,
         PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
         GoodsController.deleteGoods
+    ]);
+    app.post(`${config.api.uri}:whatis/:ids/:img/uploads`, [
+        ValidationMiddleware.validJWTNeeded,
+        PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
+        GoodsController.FileUpload
     ]);
 }

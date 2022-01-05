@@ -21,6 +21,10 @@ const replaceAll = (str, find, replace) => {
 const parseObj = (obj) => {
     let parsed = {}
     for (let key in obj) {
+        if (key==='uuid') {
+            parsed[key]  = obj[key]
+            continue
+        }
         parsed[key] = isNaN(parseInt(obj[key])) ? obj[key] : parseInt(obj[key])
     }
     return parsed
@@ -34,7 +38,7 @@ const getWhere = (req) => {
         delete where.page
         delete where.order
     }
-    return parseObj(where)
+    return where
 }
 exports.where = getWhere
 
