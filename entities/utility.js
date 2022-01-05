@@ -18,14 +18,20 @@ const replaceAll = (str, find, replace) => {
     return str.replace(new RegExp(escapedFind, 'g'), replace);
 }
 
+const filterInt = (value) => {
+    if (/^(\-|\+)?([0-9]+|Infinity)$/.test(value))
+        return Number(value);
+    return NaN;
+}
+
 const parseObj = (obj) => {
     let parsed = {}
     for (let key in obj) {
-        if (key==='uuid') {
-            parsed[key]  = obj[key]
-            continue
-        }
-        parsed[key] = isNaN(parseInt(obj[key])) ? obj[key] : parseInt(obj[key])
+        // if (key === 'uuid') {
+        //     parsed[key] = obj[key]
+        //     continue
+        // }
+        parsed[key] = isNaN(filterInt(obj[key])) ? obj[key] : parseInt(obj[key])
     }
     return parsed
 }
@@ -38,7 +44,7 @@ const getWhere = (req) => {
         delete where.page
         delete where.order
     }
-    return where
+    return parseObj(where)
 }
 exports.where = getWhere
 
