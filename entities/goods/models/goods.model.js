@@ -1,6 +1,8 @@
 const {Sequelize, DataTypes} = require('sequelize'),
     connection = require('../../../common/services/sequelize.service'),
-    DB = connection.db
+    DB = connection.db,
+    goods_img_store_to = '/images/goods/',
+    group_img_store_to = '/images/group/'
 
 const Catalog = DB.define("Catalog",
     {
@@ -150,6 +152,9 @@ const Catalog = DB.define("Catalog",
     {
         tableName: 'catalog'
     })
+exports.goods_img = goods_img_store_to
+exports.group_img = group_img_store_to
+
 exports.listOfCatalog = (options) => {
     return connection.list(Catalog,options)
 }
