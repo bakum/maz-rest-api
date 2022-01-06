@@ -1,7 +1,7 @@
 const GoodsModel = require('../models/goods.model'),
     utility = require('../../utility'),
     path = require("path"),
-    pathUpload = path.join(__dirname, '../../../uploads');
+    config = require('../../../common/config/env.config');
 
 exports.listOfCatalog = (req, res) => {
     let opt = utility.getOptions(req)
@@ -102,8 +102,8 @@ exports.FileUpload = (req, res) => {
             if (result.count === 0) {
                 return res.status(400).send({error: `There is no record for uuid - ${req.params.ids}`})
             }
-            let file = path.join(pathUpload, req.files.file.name);
             let imgval = GoodsModel.getImgPathStr(req.params.whatis, req.files.file.name)
+            let file = path.join(req.dir_sett, config.media_location, imgval);
             // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
             let uplFl = req.files.file;
             // Use the mv() method to place the file somewhere on your server

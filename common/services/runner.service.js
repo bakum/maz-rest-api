@@ -60,6 +60,7 @@ exports.run = (app, argv) => {
             if (app.get('env') !== 'testing') console.log('server listening at port %s', config.port);
         })
     }
-
+    process.env.NODE_ENV = argv.env()
     app.set('server', Server)
+    //app.set('env', argv.env())
 }

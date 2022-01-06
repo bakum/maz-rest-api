@@ -2,6 +2,7 @@ const GoodsController = require('./controllers/goods.controller');
 const config = require('../../common/config/env.config');
 const ValidationMiddleware = require('../../common/middlewares/auth.validation.middleware'),
     PermissionMiddleware = require('../../common/middlewares/auth.permission.middleware'),
+    SettingsMiddleware = require('../../common/middlewares/settings.middleware'),
     ADMIN = config.permissionLevels.ADMIN,
     PAID = config.permissionLevels.PAID_USER,
     FREE = config.permissionLevels.NORMAL_USER;
@@ -55,6 +56,7 @@ exports.routesConfig = function (app) {
     app.post(`${config.api.uri}:whatis/:ids/:img/upload`, [
         ValidationMiddleware.validJWTNeeded,
         PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
+        SettingsMiddleware.SettingsIsSet,
         GoodsController.FileUpload
     ]);
 }

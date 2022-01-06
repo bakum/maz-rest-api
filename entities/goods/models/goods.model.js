@@ -366,3 +366,48 @@ exports.updateOrCreateGroup = (where, newItem) => {
 exports.deleteGroup = (where) => {
     return connection.delete(CatalogGroup, where)
 }
+
+const SyncSettings = DB.define("SyncSettings",
+    {
+        id: {
+            type: DataTypes.BIGINT,
+            autoIncrement: true,
+            primaryKey: true,
+            allowNull: false
+        },
+        name: {
+            type: Sequelize.STRING(200),
+            allowNull: false
+        },
+        name_ru: {
+            type: Sequelize.STRING(200),
+            allowNull: true
+        },
+        name_uk: {
+            type: Sequelize.STRING(200),
+            allowNull: true
+        },
+        host_dir_prod: {
+            type: Sequelize.STRING(200),
+            allowNull: true
+        },
+        host_dir_dev: {
+            type: Sequelize.STRING(200),
+            allowNull: true
+        },
+        is_main: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false
+        }
+    },{
+        tableName: 'settings_sync'
+    }
+)
+
+exports.findMainSetting = () => {
+    return connection.list(SyncSettings,{
+        where: {
+            is_main: true
+        }
+    })
+}
