@@ -1,6 +1,11 @@
 module.exports = {
     "port": 3600,
     "portSSL": 3601,
+    "proxy" : {
+        "use": true,
+        "port": 80,
+        "proxyEndpoint" : "http://localhost"
+    },
     "appEndpoint": "http://localhost:3600",
     "apiEndpoint": "http://localhost:3600",
     "jwt_secret": "myS33!!creeeT",
