@@ -19,3 +19,4 @@ exports.onError = (error) => {
             throw error;
     }
 }
+exports.no_model = new Error('No model found')

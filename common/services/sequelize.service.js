@@ -1,8 +1,7 @@
 const config = require('../../common/config/env.config'),
     {Sequelize} = require('sequelize'),
-    argv = require('./argv.service'),
-    logg = (argv.env() === 'development'),
-    err = require('../../entities/errors')
+    logg = (process.env.NODE_ENV !== 'production'),
+    err = require('../../common/errorHundler/error.hundler')
 
 const options = {
     host: config.mysql.host,
@@ -10,7 +9,9 @@ const options = {
     define: {
         timestamps: false
     },
-    logging: logg
+    logging: msg => {
+        if (logg) console.log(msg)
+    }
 }
 
 exports.list = async (model, opt) => {
