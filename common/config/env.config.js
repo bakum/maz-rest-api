@@ -3,7 +3,7 @@ module.exports = {
     "portSSL": 3601,
     "proxy" : {
         "use": true,
-        "port": 80,
+        "port": 8000,
         "proxyEndpoint" : "http://localhost"
     },
     "appEndpoint": "http://localhost:3600",
@@ -24,7 +24,7 @@ module.exports = {
         "password" : "mazua00_db"
     },
     "production": {
-        "useSSL": true
+        "useSSL": false
     },
     "api": {
         "uri" : "/api/v2/"
