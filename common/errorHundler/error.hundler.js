@@ -20,3 +20,9 @@ exports.onError = (error) => {
     }
 }
 exports.no_model = new Error('No model found')
+exports.onProxyError = (err, req, res) => {
+    res.writeHead(500, {
+        'Content-Type': 'text/plain'
+    });
+    res.end('' + err);
+}
