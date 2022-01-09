@@ -16,7 +16,12 @@ const options = {
 
 exports.list = async (model, opt) => {
     if (model === null) return err.no_model
-    return await model.findAndCountAll(opt);
+    let result = await model.findAndCountAll(opt)
+    let page = opt.offset / opt.limit
+    result.nexPage = (result.count / opt.offset) > 1.0 ? page + 1 : null
+    let lastPage = Math.ceil(result.count / opt.limit)
+    result.lastPage = lastPage === 0 ? null : lastPage
+    return result
 }
 
 exports.delete = async (model, where) => {
