@@ -109,7 +109,7 @@ exports.FileUpload = (req, res) => {
             let uplFl = req.files.file;
             // Use the mv() method to place the file somewhere on your server
             uplFl.mv(file).then(result1 => {
-                let item = result.rows[0]
+                let item = result.rows[0].get({ plain: true })
                 item[req.params.img] = imgval
                 delete item.id
                 connection.update(
