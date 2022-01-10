@@ -37,6 +37,10 @@ exports.updateOrCreate = async (model, where, newItem) => {
     return await model.update(newItem, {where: where})
 }
 
+exports.update= async (model, where, newItem) => {
+    return await model.update(newItem, {where: where})
+}
+
 exports.db = new Sequelize(
     config.mysql.database,
     config.mysql.username,

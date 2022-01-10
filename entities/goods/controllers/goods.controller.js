@@ -1,7 +1,8 @@
 const GoodsModel = require('../models/goods.model'),
     utility = require('../../utility'),
     path = require("path"),
-    config = require('../../../common/config/env.config');
+    config = require('../../../common/config/env.config'),
+    connection = require('../../../common/services/sequelize.service')
 
 exports.listOfCatalog = (req, res) => {
     let opt = utility.getOptions(req)
@@ -110,7 +111,16 @@ exports.FileUpload = (req, res) => {
             uplFl.mv(file).then(result1 => {
                 let item = result.rows[0]
                 item[req.params.img] = imgval
-                res.send(result1);
+                delete item.id
+                connection.update(
+                    GoodsModel.getModelFromStr(req.params.whatis),
+                    {uuid: req.params.ids},
+                    item)
+                    .then(r => {
+                        res.status(200).send(r);
+                    }).catch(err => {
+                    res.status(500).send(err);
+                })
             }).catch(err => {
                 res.status(500).send(err);
             })

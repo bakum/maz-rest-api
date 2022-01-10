@@ -175,6 +175,8 @@ const getModelFromStr = (modelname) => {
     return modelname === 'catalog' ? Catalog :  modelname === 'group' ? CatalogGroup : null
 }
 
+exports.getModelFromStr = getModelFromStr
+
 exports.findByUUID = (modelname, uuid) => {
     return connection.list(getModelFromStr(modelname), {
         where: {
