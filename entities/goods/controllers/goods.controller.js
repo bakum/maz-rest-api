@@ -112,7 +112,7 @@ exports.uploadImg = async (req, res) => {
             item[req.params.img] = imgval
             delete item.id
             try {
-                let r = await  connection.update(
+                let r = await connection.update(
                     GoodsModel.getModelFromStr(req.params.whatis),
                     {uuid: req.params.ids},
                     item)
