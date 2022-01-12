@@ -57,6 +57,6 @@ exports.routesConfig = function (app) {
         ValidationMiddleware.validJWTNeeded,
         PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
         SettingsMiddleware.SettingsIsSet,
-        GoodsController.FileUpload
+        GoodsController.uploadImg
     ]);
 }

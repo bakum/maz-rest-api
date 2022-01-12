@@ -89,6 +89,46 @@ exports.deleteGroup = (req, res) => {
     })
 }
 
+exports.uploadImg = async (req, res) => {
+    if (!req.files || Object.keys(req.files).length === 0) {
+        return res.status(400).send({error: 'No files were uploaded.'});
+    }
+
+    if (req.params.whatis !== 'catalog' && req.params.whatis !== 'group') {
+        return res.status(400).send({error: `I do not know what to do with it - ${req.params.whatis}`})
+    }
+    try {
+        let result = await GoodsModel.findByUUID(req.params.whatis, req.params.ids)
+        if (result.count === 0) {
+            return res.status(400).send({error: `There is no record for uuid - ${req.params.ids}`})
+        }
+        let imgval = GoodsModel.getImgPathStr(req.params.whatis, req.files.file.name)
+        let file = path.join(req.dir_sett, config.media_location, imgval);
+        // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+        let uplFl = req.files.file;
+        try {
+            await uplFl.mv(file)
+            let item = result.rows[0].get({plain: true})
+            item[req.params.img] = imgval
+            delete item.id
+            try {
+                let r = await  connection.update(
+                    GoodsModel.getModelFromStr(req.params.whatis),
+                    {uuid: req.params.ids},
+                    item)
+                res.status(200).send(r);
+            } catch (e) {
+                res.status(500).send(e);
+            }
+        } catch (e) {
+            res.status(500).send(e);
+        }
+    } catch (err) {
+        return res.status(400).send(err)
+    }
+
+}
+
 exports.FileUpload = (req, res) => {
     if (!req.files || Object.keys(req.files).length === 0) {
         return res.status(400).send({error: 'No files were uploaded.'});
@@ -109,7 +149,7 @@ exports.FileUpload = (req, res) => {
             let uplFl = req.files.file;
             // Use the mv() method to place the file somewhere on your server
             uplFl.mv(file).then(result1 => {
-                let item = result.rows[0].get({ plain: true })
+                let item = result.rows[0].get({plain: true})
                 item[req.params.img] = imgval
                 delete item.id
                 connection.update(
