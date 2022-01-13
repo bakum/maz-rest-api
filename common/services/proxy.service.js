@@ -2,7 +2,10 @@ const {createProxyMiddleware} = require('http-proxy-middleware');
 const config = require('../config/env.config');
 
 const filter = (pathname, req) => {
-    return !req.headers.hasOwnProperty('Authorization')
+    const apiPath = config.api.uri.slice(0, -1)
+    //let isNotApi = !req.url.includes(api)
+    // return req.headers.hasOwnProperty('Authorization')
+    return !req.url.includes(apiPath)
 }
 
 

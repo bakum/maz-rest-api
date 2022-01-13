@@ -23,6 +23,19 @@ const authHeader = (req, res, next) => {
     }
 }
 
+const error404 = (req, res, next) => {
+    res.status(404)
+    if (req.accepts('json')) {
+        res.json({error: `404: url - ${req.url} not found`});
+    } else {
+        res.send(`404: url - ${req.url} not found`)
+    }
+}
+
+exports.set404 = (app) => {
+    app.use(error404)
+}
+
 exports.setHeader = (app) => {
     app.use(authHeader)
     app.use(fileUpload())
