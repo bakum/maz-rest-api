@@ -12,7 +12,6 @@ runner.setHeader(app)
 runner.setRoutes(app)
 proxy.useProxyIfNeeded(app)
 runner.set404(app)
-
 runner.run(app, argv)
 
 exports.app = app
