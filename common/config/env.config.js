@@ -6,7 +6,7 @@ module.exports = {
         "port": 8000,
         "proxyEndpoint" : "http://localhost",
         "useWebmin": false,
-        "webminEndpoint": "https://localhost:10000"
+        "webminEndpoint": "http://localhost:10000"
     },
     "appEndpoint": "http://localhost:3600",
     "apiEndpoint": "http://localhost:3600",
