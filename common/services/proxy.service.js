@@ -1,7 +1,14 @@
 const {createProxyMiddleware} = require('http-proxy-middleware');
 const config = require('../config/env.config');
 
-const filter = (pathname, req) => {
+const filterDjango = (pathname, req) => {
+    const apiPath = config.api.uri.slice(0, -1)
+    //let isNotApi = !req.url.includes(api)
+    // return req.headers.hasOwnProperty('Authorization')
+    return !req.url.includes(apiPath)
+}
+
+const filterWebmin = (pathname, req) => {
     const apiPath = config.api.uri.slice(0, -1)
     //let isNotApi = !req.url.includes(api)
     // return req.headers.hasOwnProperty('Authorization')
@@ -12,7 +19,7 @@ const filter = (pathname, req) => {
 exports.useProxyIfNeeded = (app) => {
     if (config.proxy.use) {
         if (config.proxy.useWebmin) {
-            app.use(createProxyMiddleware(['/webmin/**'],{
+            app.use('/webmin', createProxyMiddleware({
                 target: `${config.proxy.webminEndpoint}/`,
                 //changeOrigin: true,
                 secure: false,
@@ -37,7 +44,7 @@ exports.useProxyIfNeeded = (app) => {
                 }
             }))
         }
-        app.use('/', createProxyMiddleware(filter, {
+        app.use('/', createProxyMiddleware(filterDjango, {
                     target: `${config.proxy.proxyEndpoint}:${config.proxy.port}/`,
                     changeOrigin: true,
                     ws: true,
