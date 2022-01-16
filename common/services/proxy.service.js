@@ -4,8 +4,6 @@ const config = require('config'), errHundler = require('../errorHundler/error.hu
 const filterDjango = (pathname, req) => {
     let apiPath = config.api.uri.slice(0, -1)
     let isNotWebmin = req.headers.hasOwnProperty('referer') ? !req.headers['referer'].includes('/webmin') : pathname.includes('/webmin') ? !pathname.includes('/webmin') : true
-    //let isNotWebmin = !req.url.includes(api)
-    // return req.headers.hasOwnProperty('Authorization')
     return !req.url.includes(apiPath) && isNotWebmin
 }
 
