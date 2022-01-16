@@ -1,4 +1,4 @@
-const jwtSecret = require('config').jwt_secret,
+const jwtSecret = require('config').get('jwt_secret'),
     jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const uuid = require('uuid');

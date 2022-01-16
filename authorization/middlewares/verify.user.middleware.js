@@ -1,8 +1,8 @@
 const UserModel = require('../../entities/users/models/users.model');
 const crypto = require('crypto');
-const ADMIN = require('config').permissionLevels.ADMIN;
-const NORMAL_USER = require('config').permissionLevels.NORMAL_USER;
-const PAID_USER = require('config').permissionLevels.PAID_USER
+const ADMIN = require('config').get('permissionLevels.ADMIN');
+const NORMAL_USER = require('config').get('permissionLevels.NORMAL_USER');
+const PAID_USER = require('config').get('permissionLevels.PAID_USER')
 
 exports.hasAuthValidFields = (req, res, next) => {
     let errors = [];

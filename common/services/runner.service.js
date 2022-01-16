@@ -52,7 +52,7 @@ exports.setRoutes = (app) => {
 
 exports.run = (app, argv) => {
     let Server
-    if ((argv.env() === 'production') && (config.production.useSSL)) {
+    if ((argv.env() === 'production') && (config.get('production.useSSL'))) {
         try {
             Server = https.createServer({
                 cert: fs.readFileSync(path.join(__dirname, '../../certs', 'server.crt')),
@@ -60,8 +60,8 @@ exports.run = (app, argv) => {
             }, app);
             Server.on('error', errorHundler.onError);
 
-            Server.listen(config.portSSL, () => {
-                if (app.get('env') !== 'testing') console.log(`server listening (SSL) at port ${config.portSSL}`);
+            Server.listen(config.get('portSSL'), () => {
+                if (app.get('env') !== 'testing') console.log(`server listening (SSL) at port ${config.get('portSSL')}`);
             });
         } catch (e) {
             console.error(e)
@@ -69,8 +69,8 @@ exports.run = (app, argv) => {
         }
     } else {
         app.on('error', errorHundler.onError)
-        Server = app.listen(config.port, function () {
-            if (app.get('env') !== 'testing') console.log('server listening at port %s', config.port);
+        Server = app.listen(config.get('port'), function () {
+            if (app.get('env') !== 'testing') console.log('server listening at port %s', config.get('port'));
         })
     }
     app.set('server', Server)

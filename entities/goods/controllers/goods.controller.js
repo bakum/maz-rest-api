@@ -103,7 +103,7 @@ exports.uploadImg = async (req, res) => {
             return res.status(400).send({error: `There is no record for uuid - ${req.params.ids}`})
         }
         let imgval = GoodsModel.getImgPathStr(req.params.whatis, req.files.file.name)
-        let file = path.join(req.dir_sett, config.media_location, imgval);
+        let file = path.join(req.dir_sett, config.get('media_location'), imgval);
         // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
         let uplFl = req.files.file;
         try {
@@ -144,7 +144,7 @@ exports.FileUpload = (req, res) => {
                 return res.status(400).send({error: `There is no record for uuid - ${req.params.ids}`})
             }
             let imgval = GoodsModel.getImgPathStr(req.params.whatis, req.files.file.name)
-            let file = path.join(req.dir_sett, config.media_location, imgval);
+            let file = path.join(req.dir_sett, config.get('media_location'), imgval);
             // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
             let uplFl = req.files.file;
             // Use the mv() method to place the file somewhere on your server

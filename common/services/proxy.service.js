@@ -1,19 +1,20 @@
 const {createProxyMiddleware} = require('http-proxy-middleware');
-const config = require('config'), errHundler = require('../errorHundler/error.hundler')
+const config = require('config'), errHundler = require('../errorHundler/error.hundler'),
+    api = config.get('api.uri'), proxy = config.get('proxy')
 
 const filterDjango = (pathname, req) => {
-    let apiPath = config.api.uri.slice(0, -1)
+    let apiPath = api.slice(0, -1)
     let isNotWebmin = req.headers.hasOwnProperty('referer') ? !req.headers['referer'].includes('/webmin') : pathname.includes('/webmin') ? !pathname.includes('/webmin') : true
     return !req.url.includes(apiPath) && isNotWebmin
 }
 
 const filterWebmin = (pathname, req) => {
-    const apiPath = config.api.uri.slice(0, -1)
+    const apiPath = api.slice(0, -1)
     return !req.url.includes(apiPath)
 }
 
 const djangoProxy = createProxyMiddleware(filterDjango, {
-    target: `${config.proxy.proxyEndpoint}:${config.proxy.port}/`,
+    target: `${proxy.proxyEndpoint}:${proxy.port}/`,
     changeOrigin: true,
     ws: true,
     logLevel: process.env.NODE_ENV !== 'production' ? 'error' : 'silent',
@@ -23,7 +24,7 @@ const djangoProxy = createProxyMiddleware(filterDjango, {
 })
 
 const webminProxy = createProxyMiddleware(filterWebmin, {
-    target: `${config.proxy.webminEndpoint}/`,
+    target: `${proxy.webminEndpoint}/`,
     changeOrigin: true,
     //secure: false,
     ws: true,
@@ -37,7 +38,7 @@ const webminProxy = createProxyMiddleware(filterWebmin, {
 })
 
 exports.useProxyIfNeeded = (app) => {
-    if (config.proxy.use) {
+    if (proxy.use) {
         app.use('/', djangoProxy)
         if (config.proxy.useWebmin) {
             app.use('/webmin', webminProxy)

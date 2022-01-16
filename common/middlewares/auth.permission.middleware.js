@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken'),
-    secret = require('config')['jwt_secret'],
+    secret = require('config').get('jwt_secret'),
     permError = {error: 'Permission error'}
 
 const ADMIN_PERMISSION = parseInt(require('config').permissionLevels.ADMIN);
