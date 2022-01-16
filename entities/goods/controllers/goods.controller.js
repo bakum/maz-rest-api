@@ -1,7 +1,7 @@
 const GoodsModel = require('../models/goods.model'),
     utility = require('../../utility'),
     path = require("path"),
-    config = require('../../../common/config/env.config'),
+    config = require('config'),
     connection = require('../../../common/services/sequelize.service')
 
 exports.listOfCatalog = (req, res) => {

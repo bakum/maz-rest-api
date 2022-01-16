@@ -1,5 +1,5 @@
 const {createProxyMiddleware} = require('http-proxy-middleware');
-const config = require('../config/env.config');
+const config = require('config');
 
 const filterDjango = (pathname, req) => {
     let apiPath = config.api.uri.slice(0, -1)

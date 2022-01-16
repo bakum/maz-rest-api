@@ -1,5 +1,5 @@
 const GoodsController = require('./controllers/goods.controller');
-const config = require('../../common/config/env.config');
+const config = require('config');
 const ValidationMiddleware = require('../../common/middlewares/auth.validation.middleware'),
     PermissionMiddleware = require('../../common/middlewares/auth.permission.middleware'),
     SettingsMiddleware = require('../../common/middlewares/settings.middleware'),

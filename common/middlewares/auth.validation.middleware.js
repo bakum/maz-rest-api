@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken'),
-    secret = require('../config/env.config.js').jwt_secret,
+    secret = require('config').jwt_secret,
     crypto = require('crypto'),
     fs = require("fs"),
     path = require("path"),
