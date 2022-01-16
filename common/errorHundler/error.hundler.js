@@ -24,5 +24,14 @@ exports.onProxyError = (err, req, res) => {
     res.writeHead(500, {
         'Content-Type': 'text/plain'
     });
-    res.end('' + err);
+    switch (err.code) {
+        case 'ECONNREFUSED':
+            res.end('Site is offline now. Sorry!');
+            break;
+        case 'CERT_HAS_EXPIRED':
+            res.end('SSL certificate has expired');
+            break;
+        default:
+            res.end('' + err);
+    }
 }

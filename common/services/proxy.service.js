@@ -1,5 +1,5 @@
 const {createProxyMiddleware} = require('http-proxy-middleware');
-const config = require('config');
+const config = require('config'), errHundler = require('../errorHundler/error.hundler')
 
 const filterDjango = (pathname, req) => {
     let apiPath = config.api.uri.slice(0, -1)
@@ -14,56 +14,33 @@ const filterWebmin = (pathname, req) => {
     return !req.url.includes(apiPath)
 }
 
+const djangoProxy = createProxyMiddleware(filterDjango, {
+    target: `${config.proxy.proxyEndpoint}:${config.proxy.port}/`,
+    changeOrigin: true,
+    ws: true,
+    onError(err, req, res) {
+        errHundler.onProxyError(err, req, res)
+    }
+})
+
+const webminProxy = createProxyMiddleware(filterWebmin, {
+    target: `${config.proxy.webminEndpoint}/`,
+    changeOrigin: true,
+    //secure: false,
+    ws: true,
+    pathRewrite: {
+        [`^/webmin`]: '/webmin',
+    },
+    onError(err, req, res) {
+        errHundler.onProxyError(err, req, res)
+    }
+})
 
 exports.useProxyIfNeeded = (app) => {
     if (config.proxy.use) {
-        app.use('/', createProxyMiddleware(filterDjango, {
-                    target: `${config.proxy.proxyEndpoint}:${config.proxy.port}/`,
-                    changeOrigin: true,
-                    ws: true,
-                    onError(err, req, res) {
-                        res.writeHead(500, {
-                            'Content-Type': 'text/plain'
-                        });
-                        switch (err.code) {
-                            case 'ECONNREFUSED':
-                                res.end('Site is offline now. Sorry!');
-                                break;
-                            case 'CERT_HAS_EXPIRED':
-                                res.end('SSL certificate has expired');
-                                break;
-                            default:
-                                res.end('' + err);
-                        }
-                    }
-                }
-            )
-        )
+        app.use('/', djangoProxy)
         if (config.proxy.useWebmin) {
-            app.use('/webmin', createProxyMiddleware(filterWebmin, {
-                target: `${config.proxy.webminEndpoint}/`,
-                changeOrigin: true,
-                //secure: false,
-                ws: true,
-                pathRewrite: {
-                    [`^/webmin`]: '/webmin',
-                },
-                onError(err, req, res) {
-                    res.writeHead(500, {
-                        'Content-Type': 'text/plain'
-                    });
-                    switch (err.code) {
-                        case 'ECONNREFUSED':
-                            res.end('Site is offline now. Sorry!');
-                            break;
-                        case 'CERT_HAS_EXPIRED':
-                            res.end('SSL certificate has expired');
-                            break;
-                        default:
-                            res.end('' + err);
-                    }
-                }
-            }))
+            app.use('/webmin', webminProxy)
         }
     }
 }
