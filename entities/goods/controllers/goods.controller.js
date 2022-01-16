@@ -94,7 +94,7 @@ exports.uploadImg = async (req, res) => {
         return res.status(400).send({error: 'No files were uploaded.'});
     }
 
-    if (req.params.whatis !== 'catalog' && req.params.whatis !== 'group') {
+    if (req.params.whatis !== 'goods' && req.params.whatis !== 'groups') {
         return res.status(400).send({error: `I do not know what to do with it - ${req.params.whatis}`})
     }
     try {

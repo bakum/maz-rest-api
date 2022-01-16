@@ -166,13 +166,13 @@ exports.deleteCatalog = (where) => {
 }
 
 exports.getImgPathStr = (modelname, filename) => {
-    let imgval = modelname === 'catalog' ? goods_img_store_to : group_img_store_to
+    let imgval = modelname === 'goods' ? goods_img_store_to :  modelname === 'groups' ? group_img_store_to : null
     imgval += filename
     return imgval
 }
 
 const getModelFromStr = (modelname) => {
-    return modelname === 'catalog' ? Catalog :  modelname === 'group' ? CatalogGroup : null
+    return modelname === 'goods' ? Catalog :  modelname === 'groups' ? CatalogGroup : null
 }
 
 exports.getModelFromStr = getModelFromStr
