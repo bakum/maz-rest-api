@@ -1,4 +1,4 @@
-# REST API FOR MAZ.COM.UA
+# REST API FOR [MAZ.COM.UA](http://maz.com.ua/)
 
 
 ## Before using
