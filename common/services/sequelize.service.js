@@ -1,10 +1,10 @@
-const config = require('../../common/config/env.config'),
+const config = require('config').get('mysql'),
     {Sequelize} = require('sequelize'),
     logg = (process.env.NODE_ENV !== 'production'),
     err = require('../../common/errorHundler/error.hundler')
 
 const options = {
-    host: config.mysql.host,
+    host: config.host,
     dialect: "mysql",
     define: {
         timestamps: false
@@ -42,8 +42,8 @@ exports.update= async (model, where, newItem) => {
 }
 
 exports.db = new Sequelize(
-    config.mysql.database,
-    config.mysql.username,
-    config.mysql.password,
+    config.database,
+    config.username,
+    config.password,
     options
 );
