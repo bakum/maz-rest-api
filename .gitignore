@@ -6,4 +6,4 @@ yarn.lock
 /log/*
 /certs/*
 **/uploads
-!/common/config/production.json
+/common/config/production.json

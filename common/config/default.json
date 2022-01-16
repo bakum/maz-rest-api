@@ -23,7 +23,7 @@
     "password": "mazua00_db"
   },
   "production": {
-    "useSSL": false
+    "useSSL": true
   },
   "api": {
     "uri": "/api/v2/"
