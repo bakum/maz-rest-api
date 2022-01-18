@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken'),
     secret = require('config').get('jwt_secret'),
     crypto = require('crypto'),
     fs = require("fs"),
-    path = require("path"),
-    cert = fs.readFileSync(path.join(__dirname, '../../certs/', 'server.key')),
+    //path = require("path"),
+    //cert = fs.readFileSync(path.join(__dirname, '../../certs/', 'server.key')),
     AuthError = {error: "Authorization failed"},
     permError = {error: 'Permission error'}
 
@@ -35,7 +35,7 @@ exports.validJWTNeeded = (req, res, next) => {
             if (authorization[0] !== 'Bearer') {
                 return res.status(401).send(AuthError);
             } else {
-                req.jwt = jwt.verify(authorization[1], cert);
+                req.jwt = jwt.verify(authorization[1], secret);
                 return next();
             }
 

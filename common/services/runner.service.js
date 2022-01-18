@@ -48,9 +48,9 @@ const createSSLServer = (app) => {
     finder.on('file', (file, stat) => {
         errors.push(file)
         if (!certificates.ca)
-            certificates.ca = file.includes('ca') && file.includes('.crt') ? fs.readFileSync(file) : undefined
+            certificates.ca = file.includes('ca_bundle') && file.includes('.crt') ? fs.readFileSync(file) : undefined
         if (!certificates.cert)
-            certificates.cert = file.includes('.crt') && !file.includes('ca') ? fs.readFileSync(file) : undefined
+            certificates.cert = file.includes('.crt') && !file.includes('ca_bundle') ? fs.readFileSync(file) : undefined
         if (!certificates.key)
             certificates.key = file.includes('.key') ? fs.readFileSync(file) : undefined
         console.log(file);
