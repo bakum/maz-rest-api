@@ -7,3 +7,4 @@ yarn.lock
 /certs/*
 **/uploads
 /common/config/production.json
+/common/config/development.json

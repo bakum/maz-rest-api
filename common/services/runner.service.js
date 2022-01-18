@@ -31,6 +31,53 @@ const error404 = (req, res, next) => {
         res.send(`404: url - ${req.url} not found`)
     }
 }
+const createServer = (app) => {
+    let Server
+    app.on('error', errorHundler.onError)
+    Server = app.listen(config.get('port'), () => {
+        if (app.get('env') !== 'testing') console.log('server listening at port %s', config.get('port'));
+    })
+    app.set('server', Server)
+}
+
+const createSSLServer = (app) => {
+    let Server
+    let certificates = {}
+    let errors = []
+    let finder = require('findit')(path.join(__dirname, '../../certs'))
+    finder.on('file', (file, stat) => {
+        errors.push(file)
+        if (!certificates.ca)
+            certificates.ca = file.includes('ca') ? fs.readFileSync(file) : undefined
+        if (!certificates.cert)
+            certificates.cert = file.includes('.crt') && !file.includes('ca') ? fs.readFileSync(file) : undefined
+        if (!certificates.key)
+            certificates.key = file.includes('.key') ? fs.readFileSync(file) : undefined
+        console.log(file);
+    })
+    finder.on('error', (err) => {
+        console.error(err)
+        process.exit(1)
+    })
+    finder.on('end', () => {
+        if (errors.length < 2) {
+            console.error('No certificates found for SSL')
+            process.exit(1)
+        }
+        try {
+            Server = https.createServer(certificates, app);
+            Server.on('error', errorHundler.onError);
+
+            Server.listen(config.get('portSSL'), () => {
+                if (app.get('env') !== 'testing') console.log(`server listening (SSL) at port ${config.get('portSSL')}`);
+            });
+        } catch (e) {
+            console.error(e)
+            process.exit(1)
+        }
+    })
+    app.set('server', Server)
+}
 
 exports.set404 = (app) => {
     app.use(error404)
@@ -51,28 +98,9 @@ exports.setRoutes = (app) => {
 }
 
 exports.run = (app, argv) => {
-    let Server
     if ((argv.env() === 'production') && (config.get('production.useSSL'))) {
-        try {
-            Server = https.createServer({
-                cert: fs.readFileSync(path.join(__dirname, '../../certs', 'server.crt')),
-                key: fs.readFileSync(path.join(__dirname, '../../certs', 'server.key'))
-            }, app);
-            Server.on('error', errorHundler.onError);
-
-            Server.listen(config.get('portSSL'), () => {
-                if (app.get('env') !== 'testing') console.log(`server listening (SSL) at port ${config.get('portSSL')}`);
-            });
-        } catch (e) {
-            console.error(e)
-            process.exit(1)
-        }
+        createSSLServer(app)
     } else {
-        app.on('error', errorHundler.onError)
-        Server = app.listen(config.get('port'), function () {
-            if (app.get('env') !== 'testing') console.log('server listening at port %s', config.get('port'));
-        })
+        createServer(app)
     }
-    app.set('server', Server)
-    //app.set('env', argv.env())
 }
