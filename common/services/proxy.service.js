@@ -40,7 +40,7 @@ const webminProxy = createProxyMiddleware(filterWebmin, {
 exports.useProxyIfNeeded = (app) => {
     if (proxy.use) {
         app.use('/', djangoProxy)
-        if (config.proxy.useWebmin) {
+        if (proxy.useWebmin) {
             app.use('/webmin', webminProxy)
         }
     }
