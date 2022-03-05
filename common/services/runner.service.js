@@ -43,10 +43,10 @@ const createServer = (app) => {
 const createSSLServer = (app) => {
     let Server
     let certificates = {}
-    let errors = []
+    let errors = 0
     let finder = require('findit')(path.join(__dirname, '../../certs'))
     finder.on('file', (file, stat) => {
-        errors.push(file)
+        errors++
         if (!certificates.ca)
             certificates.ca = file.includes('ca_bundle') && file.includes('.crt') ? fs.readFileSync(file) : undefined
         if (!certificates.cert)
@@ -60,7 +60,7 @@ const createSSLServer = (app) => {
         process.exit(1)
     })
     finder.on('end', () => {
-        if (errors.length < 2) {
+        if (errors < 2) {
             console.error('No certificates found for SSL')
             process.exit(1)
         }
