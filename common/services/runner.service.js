@@ -69,8 +69,9 @@ const createSSLServer = (app) => {
             Server.on('error', errorHundler.onError);
 
             Server.listen(config.get('portSSL'), () => {
-                if (app.get('env') !== 'testing') console.log(`server listening (SSL) at port ${config.get('portSSL')}`);
-            });
+                if (app.get('env') !== 'testing')
+                    console.log(`server listening (SSL) at port ${config.get('portSSL')}`)
+            })
         } catch (e) {
             console.error(e)
             process.exit(1)
