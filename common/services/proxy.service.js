@@ -17,7 +17,7 @@ const djangoProxy = createProxyMiddleware(filterDjango, {
     target: `${proxy.proxyEndpoint}:${proxy.port}/`,
     changeOrigin: true,
     ws: true,
-    logLevel: process.env.NODE_ENV !== 'production' ? 'error' : 'silent',
+    logLevel: process.env.NODE_ENV !== 'production' ? 'debug' : 'silent',
     // onError(err, req, res) {
     //     errHundler.onProxyError(err, req, res)
     // }
@@ -32,7 +32,7 @@ const webminProxy = createProxyMiddleware(filterWebmin, {
     pathRewrite: {
         [`^/webmin`]: '/webmin',
     },
-    logLevel: process.env.NODE_ENV !== 'production' ? 'error' : 'silent',
+    logLevel: process.env.NODE_ENV !== 'production' ? 'debug' : 'silent',
     // onError(err, req, res) {
     //     errHundler.onProxyError(err, req, res)
     // }
