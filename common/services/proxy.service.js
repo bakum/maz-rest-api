@@ -3,9 +3,10 @@ const config = require('config'), errHundler = require('../errorHundler/error.hu
     api = config.get('api.uri'), proxy = config.get('proxy')
 
 const filterDjango = (pathname, req) => {
-    let apiPath = api.slice(0, -1)
+    let apiPath = api.slice(0, -1), result
     let isNotWebmin = req.headers.hasOwnProperty('referer') ? !req.headers['referer'].includes('/webmin') : pathname.includes('/webmin') ? !pathname.includes('/webmin') : true
-    return !req.url.includes(apiPath) && isNotWebmin
+    result = !req.url.includes(apiPath) && isNotWebmin
+    return result
 }
 
 const filterWebmin = (pathname, req) => {
