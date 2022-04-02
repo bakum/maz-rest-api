@@ -4,7 +4,8 @@ const appLogger = require('./common/services/logger.service')
 const express = require('express');
 const app = express();
 const runner = require('./common/services/runner.service'),
-    proxy = require('./common/services/proxy.service')
+    //proxy = require('./common/services/proxy.service')
+    proxy = require('./common/services/proxy_express.service')
 
 argv.getYargs()
 appLogger.setLogger(app, argv)
