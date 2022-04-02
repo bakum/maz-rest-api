@@ -35,3 +35,17 @@ exports.onProxyError = (err, req, res) => {
             res.end('' + err);
     }
 }
+exports.onProxyErrorExpress = (err, res, next) => {
+    switch (err.code) {
+        case 'ECONNREFUSED':
+            res.end('Site is offline now. Sorry!');
+            break;
+        case 'CERT_HAS_EXPIRED':
+            res.end('SSL certificate has expired');
+            break;
+        default:
+            //res.end('' + err);
+            console.log(err.code)
+            next(err)
+    }
+}

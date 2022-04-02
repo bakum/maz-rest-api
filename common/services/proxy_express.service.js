@@ -9,6 +9,7 @@ const httproxy = require('express-http-proxy'),
     }, djangoProxy = httproxy(`${proxy.proxyEndpoint}:${proxy.port}/`, {
             filter: filterDjango,
             limit: '10mb',
+            proxyErrorHandler: errHundler.onProxyErrorExpress
         }
     )
 
