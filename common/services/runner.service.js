@@ -110,8 +110,9 @@ exports.setRoutes = (app) => {
 
 exports.redirectFromHttpToHttps = (app, argv) => {
     const redirectToHTTPS = require('express-http-to-https').redirectToHTTPS
-    if (argv.env() !== 'development' && argv.env() !== 'test' && !isSecure(req))
-        app.use(redirectToHTTPS([/localhost:(\d{4})/], [/\/insecure/], 301))
+    if (argv.env() !== 'development' && argv.env() !== 'test')
+        if (config.get('production.secure_connection'))
+            app.use(redirectToHTTPS([/localhost:(\d{4})/], [/\/insecure/], 301))
     // redirect any page form http to https
     // app.use((req, res, next) => {
     //     if (argv.env() !== 'development' && argv.env() !== 'test' && !isSecure(req)) {
