@@ -2,7 +2,7 @@
 const argv = require('./common/services/argv.service')
 const appLogger = require('./common/services/logger.service')
 const express = require('express');
-const app = express();
+const app = express(), httpApp = express();
 const runner = require('./common/services/runner.service'),
     //proxy = require('./common/services/proxy.service')
     proxy = require('./common/services/proxy_express.service')
