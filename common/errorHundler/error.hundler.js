@@ -21,12 +21,14 @@ exports.onError = (error) => {
 }
 exports.no_model = new Error('No model found')
 exports.onProxyError = (err, req, res) => {
+    const path = require('path')
     res.writeHead(500, {
         'Content-Type': 'text/plain'
     });
     switch (err.code) {
         case 'ECONNREFUSED':
-            res.end('Site is offline now. Sorry!');
+            //res.end('Site is offline now. Sorry!');
+            res.sendFile(path.join(__dirname+'/parking.html'));
             break;
         case 'CERT_HAS_EXPIRED':
             res.end('SSL certificate has expired');
@@ -36,9 +38,11 @@ exports.onProxyError = (err, req, res) => {
     }
 }
 exports.onProxyErrorExpress = (err, res, next) => {
+    const path = require('path')
     switch (err.code) {
         case 'ECONNREFUSED':
-            res.end('Site is offline now. Sorry!');
+            //res.end('Site is offline now. Sorry!');
+            res.sendFile(path.join(__dirname+'/parking.html'));
             break;
         case 'CERT_HAS_EXPIRED':
             res.end('SSL certificate has expired');

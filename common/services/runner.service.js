@@ -101,6 +101,10 @@ exports.setHeader = (app) => {
     app.disable('x-powered-by')
 }
 
+exports.setEnv = (app, env_var, env_val) => {
+    app.set(env_var, config.get(env_val))
+}
+
 exports.setRoutes = (app) => {
     AuthorizationRouter.routesConfig(app);
     UsersRouter.routesConfig(app);

@@ -9,6 +9,9 @@ const runner = require('./common/services/runner.service'),
 
 argv.getYargs()
 appLogger.setLogger(app, argv)
+// app.enable('trust proxy')
+// runner.setEnv(httpApp,'port','port')
+// runner.setEnv(app,'port','portSSL')
 runner.setHeader(app)
 runner.setRoutes(app)
 proxy.useProxyIfNeeded(app)
