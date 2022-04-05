@@ -1,6 +1,6 @@
-const GoodsController = require('./controllers/goods.controller');
-const config = require('config'), uri = config.get('api.uri')
-const ValidationMiddleware = require('../../common/middlewares/auth.validation.middleware'),
+const GoodsController = require('./controllers/goods.controller'),
+    config = require('config'), uri = config.get('api.uri'),
+    ValidationMiddleware = require('../../common/middlewares/auth.validation.middleware'),
     PermissionMiddleware = require('../../common/middlewares/auth.permission.middleware'),
     SettingsMiddleware = require('../../common/middlewares/settings.middleware'),
     ADMIN = config.get('permissionLevels.ADMIN'),
