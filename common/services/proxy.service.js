@@ -16,7 +16,7 @@ const filterWebmin = (pathname, req) => {
 
 const djangoProxy = createProxyMiddleware(filterDjango, {
     target: `${proxy.proxyEndpoint}:${proxy.port}/`,
-    changeOrigin: true,
+    //changeOrigin: true,
     ws: true,
     logLevel: process.env.NODE_ENV !== 'production' ? 'debug' : 'silent',
     onError : errHundler.onProxyError
