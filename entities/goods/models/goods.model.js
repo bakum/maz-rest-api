@@ -172,7 +172,7 @@ exports.getImgPathStr = (modelname, filename) => {
 }
 
 const getModelFromStr = (modelname) => {
-    return modelname === 'goods' ? Catalog :  modelname === 'groups' ? CatalogGroup : null
+    return modelname === 'goods' ? Catalog :  modelname === 'groups' ? CatalogGroup : modelname === 'price' ? CatalogGoods : null
 }
 
 exports.getModelFromStr = getModelFromStr
@@ -184,6 +184,15 @@ exports.findByUUID = (modelname, uuid) => {
         }
     })
 }
+
+exports.findByCod = (modelname, cod) => {
+    return connection.list(getModelFromStr(modelname), {
+        where: {
+            cod: cod
+        }
+    })
+}
+
 exports.catalog = Catalog
 
 const CatalogGoods = DB.define("CatalogGoods",
@@ -359,6 +368,7 @@ const CatalogGroup = DB.define("CatalogGroup",
     }
 )
 exports.group = CatalogGroup
+
 exports.listOfGroups = (options) => {
     return connection.list(CatalogGroup, options)
 }
