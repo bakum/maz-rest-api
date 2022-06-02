@@ -1,4 +1,4 @@
-const {Sequelize, DataTypes} = require('sequelize'),
+const {DataTypes} = require('sequelize'),
     connection = require('../../../common/services/sequelize.service'),
     DB = connection.db,
     goods_img_store_to = '/images/goods/',
@@ -13,35 +13,35 @@ const Catalog = DB.define("Catalog",
             allowNull: false
         },
         status: {
-            type: Sequelize.STRING(6),
+            type: DataTypes.STRING(6),
             allowNull: false
         },
         name: {
-            type: Sequelize.STRING(200),
+            type: DataTypes.STRING(200),
             allowNull: false
         },
         name_ru: {
-            type: Sequelize.STRING(200),
+            type: DataTypes.STRING(200),
             allowNull: true
         },
         name_uk: {
-            type: Sequelize.STRING(200),
+            type: DataTypes.STRING(200),
             allowNull: true
         },
         img: {
-            type: Sequelize.STRING(100),
+            type: DataTypes.STRING(100),
             allowNull: false
         },
         img1: {
-            type: Sequelize.STRING(100),
+            type: DataTypes.STRING(100),
             allowNull: false
         },
         img2: {
-            type: Sequelize.STRING(100),
+            type: DataTypes.STRING(100),
             allowNull: false
         },
         img3: {
-            type: Sequelize.STRING(100),
+            type: DataTypes.STRING(100),
             allowNull: false
         },
         text: {
@@ -57,27 +57,27 @@ const Catalog = DB.define("Catalog",
             allowNull: true
         },
         title: {
-            type: Sequelize.STRING(200),
+            type: DataTypes.STRING(200),
             allowNull: false
         },
         title_ru: {
-            type: Sequelize.STRING(200),
+            type: DataTypes.STRING(200),
             allowNull: true
         },
         title_uk: {
-            type: Sequelize.STRING(200),
+            type: DataTypes.STRING(200),
             allowNull: true
         },
         description: {
-            type: Sequelize.STRING(200),
+            type: DataTypes.STRING(200),
             allowNull: false
         },
         description_ru: {
-            type: Sequelize.STRING(200),
+            type: DataTypes.STRING(200),
             allowNull: true
         },
         description_uk: {
-            type: Sequelize.STRING(200),
+            type: DataTypes.STRING(200),
             allowNull: true
         },
         order: {
@@ -85,47 +85,47 @@ const Catalog = DB.define("Catalog",
             allowNull: false
         },
         cod: {
-            type: Sequelize.STRING(100),
+            type: DataTypes.STRING(100),
             allowNull: false
         },
         cod1: {
-            type: Sequelize.STRING(50),
+            type: DataTypes.STRING(50),
             allowNull: false
         },
         cod2: {
-            type: Sequelize.STRING(50),
+            type: DataTypes.STRING(50),
             allowNull: false
         },
         cod3: {
-            type: Sequelize.STRING(50),
+            type: DataTypes.STRING(50),
             allowNull: false
         },
         cod4: {
-            type: Sequelize.STRING(50),
+            type: DataTypes.STRING(50),
             allowNull: false
         },
         duble: {
-            type: Sequelize.STRING(200),
+            type: DataTypes.STRING(200),
             allowNull: false
         },
         search: {
-            type: Sequelize.STRING(50),
+            type: DataTypes.STRING(50),
             allowNull: false
         },
         search1: {
-            type: Sequelize.STRING(50),
+            type: DataTypes.STRING(50),
             allowNull: false
         },
         search2: {
-            type: Sequelize.STRING(50),
+            type: DataTypes.STRING(50),
             allowNull: false
         },
         search3: {
-            type: Sequelize.STRING(50),
+            type: DataTypes.STRING(50),
             allowNull: false
         },
         search4: {
-            type: Sequelize.STRING(50),
+            type: DataTypes.STRING(50),
             allowNull: false
         },
         main: {
@@ -145,7 +145,7 @@ const Catalog = DB.define("Catalog",
             allowNull: true
         },
         uuid: {
-            type: Sequelize.STRING(36),
+            type: DataTypes.STRING(36),
             allowNull: true
         }
     },
@@ -204,11 +204,11 @@ const CatalogGoods = DB.define("CatalogGoods",
             allowNull: false
         },
         cod: {
-            type: Sequelize.STRING(100),
+            type: DataTypes.STRING(100),
             allowNull: false
         },
         index: {
-            type: Sequelize.STRING(100),
+            type: DataTypes.STRING(100),
             allowNull: false
         },
         date: {
@@ -216,7 +216,7 @@ const CatalogGoods = DB.define("CatalogGoods",
             allowNull: false
         },
         status: {
-            type: Sequelize.STRING(6),
+            type: DataTypes.STRING(6),
             allowNull: false
         },
         catalogue: {
@@ -232,7 +232,7 @@ const CatalogGoods = DB.define("CatalogGoods",
             allowNull: false
         },
         uuid: {
-            type: Sequelize.STRING(36),
+            type: DataTypes.STRING(36),
             allowNull: true
         }
     },
@@ -259,19 +259,19 @@ const CatalogGroup = DB.define("CatalogGroup",
             allowNull: false
         },
         type: {
-            type: Sequelize.STRING(12),
+            type: DataTypes.STRING(12),
             allowNull: false
         },
         name: {
-            type: Sequelize.STRING(300),
+            type: DataTypes.STRING(300),
             allowNull: false
         },
         name_ru: {
-            type: Sequelize.STRING(300),
+            type: DataTypes.STRING(300),
             allowNull: true
         },
         name_uk: {
-            type: Sequelize.STRING(300),
+            type: DataTypes.STRING(300),
             allowNull: true
         },
         forid: {
@@ -279,23 +279,23 @@ const CatalogGroup = DB.define("CatalogGroup",
             allowNull: false
         },
         status: {
-            type: Sequelize.STRING(6),
+            type: DataTypes.STRING(6),
             allowNull: false
         },
         alias: {
-            type: Sequelize.STRING(300),
+            type: DataTypes.STRING(300),
             allowNull: false
         },
         description: {
-            type: Sequelize.STRING(300),
+            type: DataTypes.STRING(300),
             allowNull: false
         },
         description_ru: {
-            type: Sequelize.STRING(300),
+            type: DataTypes.STRING(300),
             allowNull: true
         },
         description_uk: {
-            type: Sequelize.STRING(300),
+            type: DataTypes.STRING(300),
             allowNull: true
         },
         order: {
@@ -303,11 +303,11 @@ const CatalogGroup = DB.define("CatalogGroup",
             allowNull: false
         },
         marker: {
-            type: Sequelize.STRING(50),
+            type: DataTypes.STRING(50),
             allowNull: false
         },
         img: {
-            type: Sequelize.STRING(200),
+            type: DataTypes.STRING(200),
             allowNull: false
         },
         order2: {
@@ -323,35 +323,35 @@ const CatalogGroup = DB.define("CatalogGroup",
             allowNull: false
         },
         inmain: {
-            type: Sequelize.STRING(6),
+            type: DataTypes.STRING(6),
             allowNull: false
         },
         brend: {
-            type: Sequelize.STRING(300),
+            type: DataTypes.STRING(300),
             allowNull: false
         },
         title: {
-            type: Sequelize.STRING(200),
+            type: DataTypes.STRING(200),
             allowNull: false
         },
         title_ru: {
-            type: Sequelize.STRING(200),
+            type: DataTypes.STRING(200),
             allowNull: true
         },
         title_uk: {
-            type: Sequelize.STRING(200),
+            type: DataTypes.STRING(200),
             allowNull: true
         },
         keywords: {
-            type: Sequelize.STRING(300),
+            type: DataTypes.STRING(300),
             allowNull: false
         },
         keywords_ru: {
-            type: Sequelize.STRING(300),
+            type: DataTypes.STRING(300),
             allowNull: true
         },
         keywords_uk: {
-            type: Sequelize.STRING(300),
+            type: DataTypes.STRING(300),
             allowNull: true
         },
         seo_text: {
@@ -359,7 +359,7 @@ const CatalogGroup = DB.define("CatalogGroup",
             allowNull: false
         },
         uuid: {
-            type: Sequelize.STRING(36),
+            type: DataTypes.STRING(36),
             allowNull: true
         }
     },
@@ -388,23 +388,23 @@ const SyncSettings = DB.define("SyncSettings",
             allowNull: false
         },
         name: {
-            type: Sequelize.STRING(200),
+            type: DataTypes.STRING(200),
             allowNull: false
         },
         name_ru: {
-            type: Sequelize.STRING(200),
+            type: DataTypes.STRING(200),
             allowNull: true
         },
         name_uk: {
-            type: Sequelize.STRING(200),
+            type: DataTypes.STRING(200),
             allowNull: true
         },
         host_dir_prod: {
-            type: Sequelize.STRING(200),
+            type: DataTypes.STRING(200),
             allowNull: true
         },
         host_dir_dev: {
-            type: Sequelize.STRING(200),
+            type: DataTypes.STRING(200),
             allowNull: true
         },
         is_main: {

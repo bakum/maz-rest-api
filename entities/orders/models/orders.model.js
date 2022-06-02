@@ -1,4 +1,4 @@
-const {Sequelize, DataTypes} = require('sequelize'),
+const {DataTypes} = require('sequelize'),
     connection = require('../../../common/services/sequelize.service'),
     DB = connection.db,
     Users = require('../../users/models/users.model').user,
@@ -13,7 +13,7 @@ const Orders = DB.define("Orders",
             allowNull: false
         },
         num: {
-            type: Sequelize.STRING(50),
+            type: DataTypes.STRING(50),
             allowNull: false
         },
         date: {
@@ -33,15 +33,15 @@ const Orders = DB.define("Orders",
             allowNull: true
         },
         status: {
-            type: Sequelize.STRING(3),
+            type: DataTypes.STRING(3),
             allowNull: false
         },
         dost: {
-            type: Sequelize.STRING(100),
+            type: DataTypes.STRING(100),
             allowNull: false
         },
         otdel: {
-            type: Sequelize.STRING(200),
+            type: DataTypes.STRING(200),
             allowNull: false
         },
         sum: {
@@ -53,7 +53,7 @@ const Orders = DB.define("Orders",
             allowNull: false
         },
         nomdek: {
-            type: Sequelize.STRING(300),
+            type: DataTypes.STRING(300),
             allowNull: false
         },
         user_id: {
@@ -65,7 +65,7 @@ const Orders = DB.define("Orders",
             allowNull: false
         },
         uuid: {
-            type: Sequelize.STRING(36),
+            type: DataTypes.STRING(36),
             allowNull: true
         }
     },

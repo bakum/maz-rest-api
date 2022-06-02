@@ -1,4 +1,4 @@
-const {Sequelize, DataTypes} = require('sequelize'),
+const {DataTypes} = require('sequelize'),
     connection = require('../../../common/services/sequelize.service'),
     DB = connection.db
 
@@ -11,7 +11,7 @@ const User = DB.define("User",
             allowNull: false
         },
         password: {
-            type: Sequelize.STRING(128),
+            type: DataTypes.STRING(128),
             allowNull: false
         },
         last_login: {
@@ -23,19 +23,19 @@ const User = DB.define("User",
             allowNull: false
         },
         username: {
-            type: Sequelize.STRING(150),
+            type: DataTypes.STRING(150),
             allowNull: false
         },
         first_name: {
-            type: Sequelize.STRING(150),
+            type: DataTypes.STRING(150),
             allowNull: false
         },
         last_name: {
-            type: Sequelize.STRING(150),
+            type: DataTypes.STRING(150),
             allowNull: false
         },
         email: {
-            type: Sequelize.STRING(254),
+            type: DataTypes.STRING(254),
             allowNull: false
         },
         is_staff: {
