@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken'),
     secret = require('config').get('jwt_secret'),
     crypto = require('crypto'),
-    fs = require("fs"),
+    //fs = require("fs"),
     //path = require("path"),
     //cert = fs.readFileSync(path.join(__dirname, '../../certs/', 'server.key')),
     AuthError = {error: "Authorization failed"},
