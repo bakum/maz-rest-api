@@ -19,6 +19,7 @@ exports.list = async (model, opt) => {
     let result = await model.findAndCountAll(opt)
     let page = opt.offset / opt.limit
     result.nexPage = (result.count / opt.offset) > 1.0 ? page + 1 : null
+    result.prevPage = (page = 0) ? null : page - 1
     let lastPage = Math.ceil(result.count / opt.limit)
     result.lastPage = lastPage === 0 ? null : lastPage
     return result
@@ -37,7 +38,7 @@ exports.updateOrCreate = async (model, where, newItem) => {
     return await model.update(newItem, {where: where})
 }
 
-exports.update= async (model, where, newItem) => {
+exports.update = async (model, where, newItem) => {
     return await model.update(newItem, {where: where})
 }
 
