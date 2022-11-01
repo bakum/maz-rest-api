@@ -6,7 +6,7 @@ const page = (req) => {
     let page = 0;
     if (req.query) {
         if (req.query.page) {
-            req.query.page = parseInt(req.query.page);
+            req.query.page = (parseInt(req.query.page) - 1 < 0) ? 0 : parseInt(req.query.page) - 1;
             page = Number.isInteger(req.query.page) ? req.query.page : 0;
         }
     }

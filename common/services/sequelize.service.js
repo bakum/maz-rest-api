@@ -18,11 +18,12 @@ exports.list = async (model, opt) => {
     if (model === null) return err.no_model
     let result = await model.findAndCountAll(opt)
     let page = opt.offset / opt.limit
-    result.nexPage = (result.count / opt.offset) > 1.0 ? page + 1 : null
-    result.currentPage = page
-    result.prevPage = (page === 0.0) ? null : page - 1
+    result.nexPage = (result.count / opt.offset) > 1.0 ? page + 2 : null
+    result.currentPage = page + 1
+    result.prevPage = (page === 0.0) ? null : page
     let lastPage = Math.ceil(result.count / opt.limit)
     result.lastPage = lastPage === 0 ? null : lastPage
+    result.nexPage = (result.currentPage === result.lastPage) ? null : result.nexPage
     return result
 }
 
