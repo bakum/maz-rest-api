@@ -96,7 +96,7 @@ Profiles.belongsTo(Users, {foreignKey: 'user_id'})
 Users.hasOne(Profiles, {foreignKey: 'user_id'})
 
 exports.listOfProfiles = (options) => {
-    options.include = [Users, Divisions]
+    options.include = {all: true, nested: true}
     return connection.list(Profiles, options)
 }
 exports.updateOrCreateProfile = (where, newItem) => {

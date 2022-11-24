@@ -129,7 +129,7 @@ OrderItems.belongsTo(Catalog, {foreignKey: 'product_id'})
 Catalog.hasMany(OrderItems, {foreignKey: 'product_id'})
 
 exports.listOfOrders = (options) => {
-    options.include = [Users, OrderItems]
+    options.include = {all: true, nested: true}
     return connection.list(Orders, options)
 }
 exports.updateOrCreateOrder = (where, newItem) => {
