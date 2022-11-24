@@ -60,11 +60,11 @@ exports.user = User
 
 exports.list = (options) => {
     options.include = require('../../profiles/models/profiles.model').profile
-    return connection.list(User,options)
+    return connection.list(User, options)
 }
 
 exports.findById = (id) => {
-    return connection.list(User,{
+    return connection.list(User, {
         where: {
             id: parseInt(id)
         }
@@ -72,10 +72,10 @@ exports.findById = (id) => {
 }
 
 exports.findByEmail = (email) => {
-    return connection.list(User,{
+    return connection.list(User, {
         where: {
             email: email,
-            is_active : true
+            is_active: true
         }
     })
 }
