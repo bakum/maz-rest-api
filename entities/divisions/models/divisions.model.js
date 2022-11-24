@@ -35,6 +35,7 @@ const Divisions = DB.define("Divisions",
         tableName: 'divisions'
     }
 )
+exports.division = Divisions
 
 exports.listOfDevisions = (options) => {
     return connection.list(Divisions,options)
