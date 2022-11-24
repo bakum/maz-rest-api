@@ -106,7 +106,7 @@ const OrderItems = DB.define("OrderItems",
             type: DataTypes.TEXT,
             allowNull: true
         },
-        order_id:{
+        order_id: {
             type: DataTypes.BIGINT,
             allowNull: true
         },
@@ -123,13 +123,14 @@ OrderItems.belongsTo(Orders, {foreignKey: 'order_id'})
 Orders.hasMany(OrderItems, {foreignKey: 'order_id'})
 
 Orders.belongsTo(Users, {foreignKey: 'user_id'})
-Users.hasMany(Orders,{foreignKey: 'user_id'})
+Users.hasMany(Orders, {foreignKey: 'user_id'})
 
 OrderItems.belongsTo(Catalog, {foreignKey: 'product_id'})
-Catalog.hasMany(OrderItems,{foreignKey: 'product_id'})
+Catalog.hasMany(OrderItems, {foreignKey: 'product_id'})
 
 exports.listOfOrders = (options) => {
-    return connection.list(Orders,options)
+    options.include = [Users, OrderItems]
+    return connection.list(Orders, options)
 }
 exports.updateOrCreateOrder = (where, newItem) => {
     return connection.updateOrCreate(Orders, where, newItem)

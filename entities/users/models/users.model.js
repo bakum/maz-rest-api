@@ -59,6 +59,7 @@ const User = DB.define("User",
 exports.user = User
 
 exports.list = (options) => {
+    options.include = require('../../profiles/models/profiles.model').profile
     return connection.list(User,options)
 }
 

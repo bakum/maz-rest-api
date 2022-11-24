@@ -87,6 +87,8 @@ const Profiles = DB.define("Profiles",
     }
 )
 
+exports.profile = Profiles
+
 Profiles.belongsTo(Divisions, {foreignKey: 'division_id'})
 Divisions.hasOne(Profiles, {foreignKey: 'division_id'})
 
@@ -94,6 +96,7 @@ Profiles.belongsTo(Users, {foreignKey: 'user_id'})
 Users.hasOne(Profiles, {foreignKey: 'user_id'})
 
 exports.listOfProfiles = (options) => {
+    options.include = [Users, Divisions]
     return connection.list(Profiles, options)
 }
 exports.updateOrCreateProfile = (where, newItem) => {
