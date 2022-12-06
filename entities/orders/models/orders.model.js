@@ -67,6 +67,14 @@ const Orders = DB.define("Orders",
         uuid: {
             type: DataTypes.STRING(36),
             allowNull: true
+        },
+        city_code: {
+            type: DataTypes.STRING(38),
+            allowNull: true
+        },
+        warehouse_code: {
+            type: DataTypes.STRING(38),
+            allowNull: true
         }
     },
     {
