@@ -60,6 +60,10 @@ const Orders = DB.define("Orders",
             type: DataTypes.INTEGER,
             allowNull: false
         },
+        delivery_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
         sync: {
             type: DataTypes.BOOLEAN,
             allowNull: false
@@ -127,11 +131,40 @@ const OrderItems = DB.define("OrderItems",
         tableName: 'orders_items'
     }
 )
+const Delivery = DB.define("Delivery", {
+        id: {
+            type: DataTypes.BIGINT,
+            autoIncrement: true,
+            primaryKey: true,
+            allowNull: false
+        },
+        name: {
+            type: DataTypes.STRING(75),
+            allowNull: true
+        },
+        name_ru: {
+            type: DataTypes.STRING(75),
+            allowNull: true
+        },
+        name_uk: {
+            type: DataTypes.STRING(75),
+            allowNull: true
+        },
+        uuid: {
+            type: DataTypes.STRING(36),
+            allowNull: true
+        },
+    },
+    {
+        tableName: 'delivery_type'
+    })
 OrderItems.belongsTo(Orders, {foreignKey: 'order_id'})
 Orders.hasMany(OrderItems, {foreignKey: 'order_id'})
 
 Orders.belongsTo(Users, {foreignKey: 'user_id'})
 Users.hasMany(Orders, {foreignKey: 'user_id'})
+Orders.belongsTo(Delivery, {foreignKey: 'delivery_id'})
+Delivery.hasMany(Orders,{foreignKey: 'delivery_id'})
 
 OrderItems.belongsTo(Catalog, {foreignKey: 'product_id'})
 Catalog.hasMany(OrderItems, {foreignKey: 'product_id'})
@@ -144,15 +177,25 @@ exports.listOfOrderItems = (options) => {
     options.include = {all: true, nested: true}
     return connection.list(OrderItems, options)
 }
+exports.listOfDelivery = (options) => {
+    options.include = {all: true, nested: true}
+    return connection.list(Delivery, options)
+}
 exports.updateOrCreateOrder = (where, newItem) => {
     return connection.updateOrCreate(Orders, where, newItem)
 }
 exports.updateOrCreateOrderItem = (where, newItem) => {
     return connection.updateOrCreate(OrderItems, where, newItem)
 }
+exports.updateOrCreateDelivery = (where, newItem) => {
+    return connection.updateOrCreate(Delivery, where, newItem)
+}
 exports.deleteOrder = (where) => {
     return connection.delete(Orders, where)
 }
 exports.deleteOrderItem = (where) => {
     return connection.delete(OrderItems, where)
+}
+exports.deleteDelivery = (where) => {
+    return connection.delete(Delivery, where)
 }

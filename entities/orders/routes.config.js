@@ -36,4 +36,19 @@ exports.routesConfig = function (app) {
         PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
         OrdersController.deleteOrderItem
     ]);
+    app.get(`${uri}delivery`, [
+        ValidationMiddleware.validJWTNeeded,
+        PermissionMiddleware.minimumPermissionLevelRequired(PAID),
+        OrdersController.listOfDelivery
+    ]);
+    app.post(`${uri}delivery`, [
+        ValidationMiddleware.validJWTNeeded,
+        PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
+        OrdersController.updateOrCreateDelivery
+    ]);
+    app.delete(`${uri}delivery`, [
+        ValidationMiddleware.validJWTNeeded,
+        PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
+        OrdersController.deleteDelivery
+    ]);
 }
