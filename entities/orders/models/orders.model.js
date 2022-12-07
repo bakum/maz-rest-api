@@ -178,7 +178,7 @@ exports.listOfOrderItems = (options) => {
     return connection.list(OrderItems, options)
 }
 exports.listOfDelivery = (options) => {
-    options.include = {all: true, nested: true}
+    //options.include = {all: true, nested: true}
     return connection.list(Delivery, options)
 }
 exports.updateOrCreateOrder = (where, newItem) => {
