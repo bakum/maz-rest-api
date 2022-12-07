@@ -140,9 +140,19 @@ exports.listOfOrders = (options) => {
     options.include = {all: true, nested: true}
     return connection.list(Orders, options)
 }
+exports.listOfOrderItems = (options) => {
+    options.include = {all: true, nested: true}
+    return connection.list(OrderItems, options)
+}
 exports.updateOrCreateOrder = (where, newItem) => {
     return connection.updateOrCreate(Orders, where, newItem)
 }
+exports.updateOrCreateOrderItem = (where, newItem) => {
+    return connection.updateOrCreate(OrderItems, where, newItem)
+}
 exports.deleteOrder = (where) => {
     return connection.delete(Orders, where)
+}
+exports.deleteOrderItem = (where) => {
+    return connection.delete(OrderItems, where)
 }

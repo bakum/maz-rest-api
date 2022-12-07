@@ -11,6 +11,15 @@ exports.listOfOrders = (req, res) => {
         res.status(500).send(reason)
     })
 }
+exports.listOfOrderItems = (req, res) => {
+    let opt= utility.getOptions(req)
+    OrdersModel.listOfOrderItems(opt)
+        .then((result) => {
+            res.status(200).send(result)
+        }).catch(reason => {
+        res.status(500).send(reason)
+    })
+}
 exports.updateOrCreateOrder = (req, res) => {
     let where = utility.where(req)
     //where.uuid = req.body.uuid
@@ -20,10 +29,27 @@ exports.updateOrCreateOrder = (req, res) => {
         res.status(500).send(reason)
     })
 }
+exports.updateOrCreateOrderItem = (req, res) => {
+    let where = utility.where(req)
+    //where.uuid = req.body.uuid
+    OrdersModel.updateOrCreateOrderItem(where,req.body).then((result) => {
+        res.status(200).send(result)
+    }).catch(reason => {
+        res.status(500).send(reason)
+    })
+}
 
 exports.deleteOrder = (req, res) => {
     let where = utility.where(req)
     OrdersModel.deleteOrder(where).then(result => {
+        res.sendStatus(204)
+    }).catch(reason => {
+        res.status(500).send(reason)
+    })
+}
+exports.deleteOrderItem = (req, res) => {
+    let where = utility.where(req)
+    OrdersModel.deleteOrderItem(where).then(result => {
         res.sendStatus(204)
     }).catch(reason => {
         res.status(500).send(reason)
