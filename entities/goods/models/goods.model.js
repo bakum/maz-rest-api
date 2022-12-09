@@ -361,6 +361,10 @@ const CatalogGroup = DB.define("CatalogGroup",
         uuid: {
             type: DataTypes.STRING(36),
             allowNull: true
+        },
+        sync: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false
         }
     },
     {
