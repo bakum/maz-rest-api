@@ -154,6 +154,10 @@ const Delivery = DB.define("Delivery", {
             type: DataTypes.STRING(36),
             allowNull: true
         },
+        sync: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false
+        }
     },
     {
         tableName: 'delivery_type'
