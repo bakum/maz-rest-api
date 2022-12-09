@@ -29,6 +29,10 @@ const Divisions = DB.define("Divisions",
         uuid: {
             type: DataTypes.STRING(36),
             allowNull: true
+        },
+        sync: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false
         }
     },
     {
