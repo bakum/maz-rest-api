@@ -56,7 +56,57 @@ const User = DB.define("User",
     }
 )
 
+const WagProfile = DB.define("WagProfile",
+    {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+            allowNull: false
+        },
+        submitted_notifications: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false
+        },
+        approved_notifications: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false
+        },
+        rejected_notifications: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false
+        },
+        user_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        preferred_language: {
+            type: DataTypes.STRING(10),
+            allowNull: false
+        },
+        current_time_zone: {
+            type: DataTypes.STRING(40),
+            allowNull: false
+        },
+        avatar: {
+            type: DataTypes.STRING(100),
+            allowNull: false
+        },
+        updated_comments_notifications: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false
+        },
+    },
+    {
+        tableName: 'wagtailusers_userprofile'
+    }
+)
+
+WagProfile.belongsTo(User, {foreignKey: 'user_id'})
+User.hasOne(WagProfile, {foreignKey: 'user_id'})
+
 exports.user = User
+exports.userprofile = WagProfile
 
 exports.list = (options) => {
     //options.include = require('../../profiles/models/profiles.model').profile
