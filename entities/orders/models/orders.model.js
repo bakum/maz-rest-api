@@ -22,7 +22,7 @@ const Orders = DB.define("Orders",
         },
         text: {
             type: DataTypes.TEXT,
-            allowNull: false
+            allowNull: true
         },
         text_ru: {
             type: DataTypes.TEXT,
@@ -46,15 +46,15 @@ const Orders = DB.define("Orders",
         },
         sum: {
             type: DataTypes.DOUBLE,
-            allowNull: false
+            allowNull: true
         },
         coment: {
             type: DataTypes.TEXT,
-            allowNull: false
+            allowNull: true
         },
         nomdek: {
             type: DataTypes.STRING(300),
-            allowNull: false
+            allowNull: true
         },
         user_id: {
             type: DataTypes.INTEGER,
@@ -168,7 +168,7 @@ Orders.hasMany(OrderItems, {foreignKey: 'order_id'})
 Orders.belongsTo(Users, {foreignKey: 'user_id'})
 Users.hasMany(Orders, {foreignKey: 'user_id'})
 Orders.belongsTo(Delivery, {foreignKey: 'delivery_id'})
-Delivery.hasMany(Orders,{foreignKey: 'delivery_id'})
+Delivery.hasMany(Orders, {foreignKey: 'delivery_id'})
 
 OrderItems.belongsTo(Catalog, {foreignKey: 'product_id'})
 Catalog.hasMany(OrderItems, {foreignKey: 'product_id'})
@@ -178,7 +178,7 @@ exports.listOfOrders = (options) => {
     return connection.list(Orders, options)
 }
 exports.listOfOrderItems = (options) => {
-    options.include = {all: true, nested: true}
+    //options.include = {all: true, nested: true}
     return connection.list(OrderItems, options)
 }
 exports.listOfDelivery = (options) => {
@@ -186,6 +186,15 @@ exports.listOfDelivery = (options) => {
     return connection.list(Delivery, options)
 }
 exports.updateOrCreateOrder = (where, newItem) => {
+    let items = newItem.OrderItems || undefined
+    if (items) {
+        delete newItem.OrderItems
+        if (Array.isArray(items)) {
+            items.map(async (itm) => {
+                await connection.updateOrCreate(OrderItems, {id: itm.id}, itm)
+            })
+        }
+    }
     return connection.updateOrCreate(Orders, where, newItem)
 }
 exports.updateOrCreateOrderItem = (where, newItem) => {
