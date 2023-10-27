@@ -185,6 +185,9 @@ exports.updateOrCreateCatalog = (where, newItem) => {
 exports.deleteCatalog = (where) => {
     return connection.delete(Catalog, where)
 }
+exports.deleteCatalogWhenUUIDNull = () => {
+    return connection.deleteWhenNull(Catalog)
+}
 
 exports.getImgPathStr = (modelname, filename) => {
     let imgval = modelname === 'goods' ? goods_img_store_to :  modelname === 'groups' ? group_img_store_to : null
@@ -269,6 +272,9 @@ exports.updateOrCreateGoods = (where, newItem) => {
 }
 exports.deleteGoods = (where) => {
     return connection.delete(CatalogGoods, where)
+}
+exports.deleteGoodsWhenUUIDNull = () => {
+    return connection.deleteWhenNull(CatalogGoods)
 }
 
 const CatalogGroup = DB.define("CatalogGroup",
