@@ -30,19 +30,23 @@ const Catalog = DB.define("Catalog",
         },
         img: {
             type: DataTypes.STRING(100),
-            allowNull: true
+            allowNull: true,
+            defaultValue: ''
         },
         img1: {
             type: DataTypes.STRING(100),
-            allowNull: true
+            allowNull: true,
+            defaultValue: ''
         },
         img2: {
             type: DataTypes.STRING(100),
-            allowNull: true
+            allowNull: true,
+            defaultValue: ''
         },
         img3: {
             type: DataTypes.STRING(100),
-            allowNull: true
+            allowNull: true,
+            defaultValue: ''
         },
         text: {
             type: DataTypes.TEXT,

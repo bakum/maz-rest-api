@@ -35,6 +35,14 @@ exports.delete = async (model, where) => {
     return await model.destroy({where})
 }
 
+exports.deleteWhenNull = async (model) => {
+    return await model.destroy({
+        where: {
+            uuid: null
+        },
+    })
+}
+
 exports.updateOrCreate = async (model, where, newItem) => {
     let foundItem = await model.findOne({where})
     if (!foundItem || isObjectEmpty(where)) {
