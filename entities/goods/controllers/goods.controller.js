@@ -35,7 +35,9 @@ exports.deleteCatalog = (req, res) => {
 
 exports.deleteCatalogWhenUUIDNull = (req, res) => {
     GoodsModel.deleteCatalogWhenUUIDNull().then(result => {
-        res.sendStatus(204)
+        res.send({
+            deleted: result
+        })
     }).catch(reason => {
         res.status(500).send(reason)
     })
@@ -71,7 +73,9 @@ exports.deleteGoods = (req, res) => {
 
 exports.deleteGoodsWhenUUIDNull = (req, res) => {
     GoodsModel.deleteGoodsWhenUUIDNull().then(result => {
-        res.sendStatus(204)
+        res.send({
+            deleted: result
+        })
     }).catch(reason => {
         res.status(500).send(reason)
     })
