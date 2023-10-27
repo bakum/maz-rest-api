@@ -30,31 +30,34 @@ const Catalog = DB.define("Catalog",
         },
         img: {
             type: DataTypes.STRING(100),
-            allowNull: false
+            allowNull: true
         },
         img1: {
             type: DataTypes.STRING(100),
-            allowNull: false
+            allowNull: true
         },
         img2: {
             type: DataTypes.STRING(100),
-            allowNull: false
+            allowNull: true
         },
         img3: {
             type: DataTypes.STRING(100),
-            allowNull: false
+            allowNull: true
         },
         text: {
             type: DataTypes.TEXT,
-            allowNull: false
+            allowNull: false,
+            defaultValue: ''
         },
         text_ru: {
             type: DataTypes.TEXT,
-            allowNull: true
+            allowNull: true,
+            defaultValue: ''
         },
         text_uk: {
             type: DataTypes.TEXT,
-            allowNull: true
+            allowNull: true,
+            defaultValue: ''
         },
         title: {
             type: DataTypes.STRING(200),
@@ -82,7 +85,8 @@ const Catalog = DB.define("Catalog",
         },
         order: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            defaultValue: 999999999
         },
         cod: {
             type: DataTypes.STRING(100),
@@ -90,23 +94,28 @@ const Catalog = DB.define("Catalog",
         },
         cod1: {
             type: DataTypes.STRING(50),
-            allowNull: false
+            allowNull: true,
+            defaultValue: ''
         },
         cod2: {
             type: DataTypes.STRING(50),
-            allowNull: false
+            allowNull: true,
+            defaultValue: ''
         },
         cod3: {
             type: DataTypes.STRING(50),
-            allowNull: false
+            allowNull: true,
+            defaultValue: ''
         },
         cod4: {
             type: DataTypes.STRING(50),
-            allowNull: false
+            allowNull: true,
+            defaultValue: ''
         },
         duble: {
             type: DataTypes.STRING(200),
-            allowNull: false
+            allowNull: true,
+            defaultValue: ''
         },
         search: {
             type: DataTypes.STRING(50),
@@ -114,35 +123,43 @@ const Catalog = DB.define("Catalog",
         },
         search1: {
             type: DataTypes.STRING(50),
-            allowNull: false
+            allowNull: true,
+            defaultValue: ''
         },
         search2: {
             type: DataTypes.STRING(50),
-            allowNull: false
+            allowNull: true,
+            defaultValue: ''
         },
         search3: {
             type: DataTypes.STRING(50),
-            allowNull: false
+            allowNull: true,
+            defaultValue: ''
         },
         search4: {
             type: DataTypes.STRING(50),
-            allowNull: false
+            allowNull: true,
+            defaultValue: ''
         },
         main: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            defaultValue: 0
         },
         sale: {
             type: DataTypes.DECIMAL(10, 2),
-            allowNull: false
+            allowNull: false,
+            defaultValue: 0.00
         },
         sp_price: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            defaultValue: 0
         },
         catalog_group: {
             type: DataTypes.BIGINT,
-            allowNull: true
+            allowNull: true,
+            defaultValue: 0
         },
         uuid: {
             type: DataTypes.STRING(36),

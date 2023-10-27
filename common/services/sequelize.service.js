@@ -13,6 +13,9 @@ const options = {
         if (logg) console.log(msg)
     }
 }
+const isObjectEmpty = (objectName) => {
+    return Object.keys(objectName).length === 0
+}
 
 exports.list = async (model, opt) => {
     if (model === null) return err.no_model
@@ -34,7 +37,7 @@ exports.delete = async (model, where) => {
 
 exports.updateOrCreate = async (model, where, newItem) => {
     let foundItem = await model.findOne({where})
-    if (!foundItem) {
+    if (!foundItem || isObjectEmpty(where)) {
         return model.create(newItem);
     }
 
