@@ -22,6 +22,11 @@ exports.routesConfig = function (app) {
         PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
         GoodsController.deleteCatalog
     ]);
+    app.delete(`${uri}goods/nullvalue`, [
+        ValidationMiddleware.validJWTNeeded,
+        PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
+        GoodsController.deleteCatalogWhenUUIDNull
+    ]);
     app.get(`${uri}groups`, [
         ValidationMiddleware.validJWTNeeded,
         PermissionMiddleware.minimumPermissionLevelRequired(PAID),
@@ -51,6 +56,11 @@ exports.routesConfig = function (app) {
         ValidationMiddleware.validJWTNeeded,
         PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
         GoodsController.deleteGoods
+    ]);
+    app.delete(`${uri}price/nullvalue`, [
+        ValidationMiddleware.validJWTNeeded,
+        PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
+        GoodsController.deleteGoodsWhenUUIDNull
     ]);
     app.post(`${uri}:whatis/:ids/:img/upload`, [
         ValidationMiddleware.validJWTNeeded,

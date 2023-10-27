@@ -33,6 +33,14 @@ exports.deleteCatalog = (req, res) => {
     })
 }
 
+exports.deleteCatalogWhenUUIDNull = (req, res) => {
+    GoodsModel.deleteCatalogWhenUUIDNull().then(result => {
+        res.sendStatus(204)
+    }).catch(reason => {
+        res.status(500).send(reason)
+    })
+}
+
 exports.listOfGoods = (req, res) => {
     let opt = utility.getOptions(req)
     GoodsModel.listOfGoods(opt)
@@ -55,6 +63,14 @@ exports.updateOrCreateGoods = (req, res) => {
 exports.deleteGoods = (req, res) => {
     let where = utility.where(req)
     GoodsModel.deleteGoods(where).then(result => {
+        res.sendStatus(204)
+    }).catch(reason => {
+        res.status(500).send(reason)
+    })
+}
+
+exports.deleteGoodsWhenUUIDNull = (req, res) => {
+    GoodsModel.deleteGoodsWhenUUIDNull().then(result => {
         res.sendStatus(204)
     }).catch(reason => {
         res.status(500).send(reason)
