@@ -1,4 +1,4 @@
-const {DataTypes} = require('sequelize'),
+const {DataTypes, Sequelize} = require('sequelize'),
     connection = require('../../../common/services/sequelize.service'),
     DB = connection.db,
     goods_img_store_to = '/images/goods/',
@@ -190,13 +190,13 @@ exports.deleteCatalogWhenUUIDNull = () => {
 }
 
 exports.getImgPathStr = (modelname, filename) => {
-    let imgval = modelname === 'goods' ? goods_img_store_to :  modelname === 'groups' ? group_img_store_to : null
+    let imgval = modelname === 'goods' ? goods_img_store_to : modelname === 'groups' ? group_img_store_to : null
     imgval += filename
     return imgval
 }
 
 const getModelFromStr = (modelname) => {
-    return modelname === 'goods' ? Catalog :  modelname === 'groups' ? CatalogGroup : modelname === 'price' ? CatalogGoods : null
+    return modelname === 'goods' ? Catalog : modelname === 'groups' ? CatalogGroup : modelname === 'price' ? CatalogGoods : null
 }
 
 exports.getModelFromStr = getModelFromStr
@@ -233,19 +233,23 @@ const CatalogGoods = DB.define("CatalogGoods",
         },
         index: {
             type: DataTypes.STRING(100),
-            allowNull: false
+            allowNull: false,
+            defaultValue: '999999999'
         },
         date: {
             type: DataTypes.DATE,
-            allowNull: false
+            allowNull: false,
+            defaultValue: Sequelize.fn('now')
         },
         status: {
             type: DataTypes.STRING(6),
-            allowNull: false
+            allowNull: false,
+            defaultValue: 'active'
         },
         catalogue: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            defaultValue: 1
         },
         price: {
             type: DataTypes.DECIMAL(10, 2),
@@ -253,7 +257,8 @@ const CatalogGoods = DB.define("CatalogGoods",
         },
         quantity: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            defaultValue: 0
         },
         uuid: {
             type: DataTypes.STRING(36),
@@ -269,6 +274,9 @@ exports.listOfGoods = (options) => {
 }
 exports.updateOrCreateGoods = (where, newItem) => {
     return connection.updateOrCreate(CatalogGoods, where, newItem)
+}
+exports.createPrice = (newItem) => {
+    return CatalogGoods.create(newItem)
 }
 exports.deleteGoods = (where) => {
     return connection.delete(CatalogGoods, where)
@@ -442,13 +450,13 @@ const SyncSettings = DB.define("SyncSettings",
             type: DataTypes.BOOLEAN,
             allowNull: false
         }
-    },{
+    }, {
         tableName: 'settings_sync'
     }
 )
 
 exports.findMainSetting = () => {
-    return connection.list(SyncSettings,{
+    return connection.list(SyncSettings, {
         where: {
             is_main: true
         }

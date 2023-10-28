@@ -62,6 +62,14 @@ exports.updateOrCreateGoods = (req, res) => {
     })
 }
 
+exports.createPrice = (req, res) => {
+    GoodsModel.createPrice(req.body).then(result => {
+        res.status(200).send(result)
+    }).catch(reason => {
+        res.status(500).send(reason)
+    })
+}
+
 exports.deleteGoods = (req, res) => {
     let where = utility.where(req)
     GoodsModel.deleteGoods(where).then(result => {

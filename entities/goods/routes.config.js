@@ -52,6 +52,11 @@ exports.routesConfig = function (app) {
         PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
         GoodsController.updateOrCreateGoods
     ]);
+    app.post(`${uri}price/add`, [
+        ValidationMiddleware.validJWTNeeded,
+        PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
+        GoodsController.createPrice
+    ]);
     app.delete(`${uri}price`, [
         ValidationMiddleware.validJWTNeeded,
         PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
