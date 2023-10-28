@@ -73,7 +73,9 @@ exports.createPrice = (req, res) => {
 exports.deleteGoods = (req, res) => {
     let where = utility.where(req)
     GoodsModel.deleteGoods(where).then(result => {
-        res.sendStatus(204)
+        res.send({
+            deleted: result
+        })
     }).catch(reason => {
         res.status(500).send(reason)
     })
