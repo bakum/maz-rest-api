@@ -27,7 +27,9 @@ exports.updateOrCreateCatalog = (req, res) => {
 exports.deleteCatalog = (req, res) => {
     let where = utility.where(req)
     GoodsModel.deleteCatalog(where).then(result => {
-        res.sendStatus(204)
+        res.send({
+            deleted: result
+        })
     }).catch(reason => {
         res.status(500).send(reason)
     })
@@ -113,7 +115,9 @@ exports.updateOrCreateGroup = (req, res) => {
 exports.deleteGroup = (req, res) => {
     let where = utility.where(req)
     GoodsModel.deleteGroup(where).then(result => {
-        res.sendStatus(204)
+        res.send({
+            deleted: result
+        })
     }).catch(reason => {
         res.status(500).send(reason)
     })
