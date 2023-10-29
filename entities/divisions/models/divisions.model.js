@@ -26,6 +26,11 @@ const Divisions = DB.define("Divisions",
             type: DataTypes.STRING(254),
             allowNull: false
         },
+        status: {
+            type: DataTypes.STRING(6),
+            allowNull: false,
+            defaultValue: 'active'
+        },
         uuid: {
             type: DataTypes.STRING(36),
             allowNull: true

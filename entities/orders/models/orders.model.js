@@ -154,6 +154,11 @@ const Delivery = DB.define("Delivery", {
             type: DataTypes.STRING(36),
             allowNull: true
         },
+        status: {
+            type: DataTypes.STRING(6),
+            allowNull: false,
+            defaultValue: 'active'
+        },
         sync: {
             type: DataTypes.BOOLEAN,
             allowNull: false
