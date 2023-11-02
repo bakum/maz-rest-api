@@ -143,11 +143,13 @@ exports.updateUser = async (where, newItem) => {
                 await connection.updateOrCreate(Profile, {id: itm.id}, itm)
             })
         } else {
-            await connection.updateOrCreate(Profile, {id: items.id}, items)
+            let result = await connection.updateOrCreate(Profile, {id: items.id}, items)
         }
     }
     return connection.list(User, {
-        where:newItem.id,
+        where: {
+            id: newItem.id
+        },
         include: {
             all: true,
             nested: true}
