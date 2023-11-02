@@ -132,7 +132,7 @@ exports.findByEmail = (email) => {
 }
 
 exports.updateUser = async (where, newItem) => {
-    if (connection.opjectIsEmpty(where)) {
+    if (connection.objectIsEmpty(where)) {
         throw new Error('Selection condition missing')
     }
     const Profile = require('../../profiles/models/profiles.model').profile
