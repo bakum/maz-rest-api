@@ -10,7 +10,9 @@ exports.listOfCatalog = (req, res) => {
         .then((result) => {
             res.status(200).send(result)
         }).catch(reason => {
-        res.status(500).send(reason)
+        res.status(500).send(
+            {error: reason.message}
+        )
     })
 }
 
@@ -20,7 +22,9 @@ exports.updateOrCreateCatalog = (req, res) => {
     GoodsModel.updateOrCreateCatalog(where, req.body).then((result) => {
         res.status(200).send(result)
     }).catch(reason => {
-        res.status(500).send(reason)
+        res.status(500).send(
+            {error: reason.message}
+        )
     })
 }
 
@@ -31,7 +35,9 @@ exports.deleteCatalog = (req, res) => {
             deleted: result
         })
     }).catch(reason => {
-        res.status(500).send(reason)
+        res.status(500).send(
+            {error: reason.message}
+        )
     })
 }
 
@@ -41,7 +47,9 @@ exports.deleteCatalogWhenUUIDNull = (req, res) => {
             deleted: result
         })
     }).catch(reason => {
-        res.status(500).send(reason)
+        res.status(500).send(
+            {error: reason.message}
+        )
     })
 }
 
@@ -51,7 +59,9 @@ exports.listOfGoods = (req, res) => {
         .then((result) => {
             res.status(200).send(result)
         }).catch(reason => {
-        res.status(500).send(reason)
+        res.status(500).send(
+            {error: reason.message}
+        )
     })
 }
 exports.updateOrCreateGoods = (req, res) => {
@@ -60,7 +70,9 @@ exports.updateOrCreateGoods = (req, res) => {
     GoodsModel.updateOrCreateGoods(where, req.body).then((result) => {
         res.status(200).send(result)
     }).catch(reason => {
-        res.status(500).send(reason)
+        res.status(500).send(
+            {error: reason.message}
+        )
     })
 }
 
@@ -68,7 +80,9 @@ exports.createPrice = (req, res) => {
     GoodsModel.createPrice(req.body).then(result => {
         res.status(200).send(result)
     }).catch(reason => {
-        res.status(500).send(reason)
+        res.status(500).send(
+            {error: reason.message}
+        )
     })
 }
 
@@ -79,7 +93,9 @@ exports.deleteGoods = (req, res) => {
             deleted: result
         })
     }).catch(reason => {
-        res.status(500).send(reason)
+        res.status(500).send(
+            {error: reason.message}
+        )
     })
 }
 
@@ -89,7 +105,9 @@ exports.deleteGoodsWhenUUIDNull = (req, res) => {
             deleted: result
         })
     }).catch(reason => {
-        res.status(500).send(reason)
+        res.status(500).send(
+            {error: reason.message}
+        )
     })
 }
 
@@ -99,7 +117,9 @@ exports.listOfGroups = (req, res) => {
         .then((result) => {
             res.status(200).send(result)
         }).catch(reason => {
-        res.status(500).send(reason)
+        res.status(500).send(
+            {error: reason.message}
+        )
     })
 }
 exports.updateOrCreateGroup = (req, res) => {
@@ -108,7 +128,9 @@ exports.updateOrCreateGroup = (req, res) => {
     GoodsModel.updateOrCreateGroup(where, req.body).then((result) => {
         res.status(200).send(result)
     }).catch(reason => {
-        res.status(500).send(reason)
+        res.status(500).send(
+            {error: reason.message}
+        )
     })
 }
 
@@ -119,7 +141,9 @@ exports.deleteGroup = (req, res) => {
             deleted: result
         })
     }).catch(reason => {
-        res.status(500).send(reason)
+        res.status(500).send(
+            {error: reason.message}
+        )
     })
 }
 
@@ -152,10 +176,14 @@ exports.uploadImg = async (req, res) => {
                     item)
                 res.status(200).send(r);
             } catch (e) {
-                res.status(500).send(e);
+                res.status(500).send(
+                    {error: e.message}
+                )
             }
         } catch (e) {
-            res.status(500).send(e);
+            res.status(500).send(
+                {error: e.message}
+            )
         }
     } catch (err) {
         return res.status(400).send(err)

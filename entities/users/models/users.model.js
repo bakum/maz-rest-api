@@ -130,3 +130,26 @@ exports.findByEmail = (email) => {
         }
     })
 }
+
+exports.updateUser = async (where, newItem) => {
+    if (connection.opjectIsEmpty(where)) {
+        throw new Error('Selection condition missing')
+    }
+    const Profile = require('../../profiles/models/profiles.model').profile
+    let items = newItem.Profile || undefined
+    if (items) {
+        if (Array.isArray(items)) {
+            items.map(async (itm) => {
+                await connection.updateOrCreate(Profile, {id: itm.id}, itm)
+            })
+        } else {
+            await connection.updateOrCreate(Profile, {id: items.id}, items)
+        }
+    }
+    return connection.list(User, {
+        where:newItem.id,
+        include: {
+            all: true,
+            nested: true}
+    })
+}

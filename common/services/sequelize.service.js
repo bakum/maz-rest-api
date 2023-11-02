@@ -17,6 +17,8 @@ const isObjectEmpty = (objectName) => {
     return Object.keys(objectName).length === 0
 }
 
+exports.opjectIsEmpty = isObjectEmpty
+
 exports.list = async (model, opt) => {
     if (model === null) return err.no_model
     //if (!opt.include) opt.include = {all: true, nested: true}
