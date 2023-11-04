@@ -11,6 +11,7 @@ const GoodsRouter = require('../../entities/goods/routes.config');
 const OrdersRouter = require('../../entities/orders/routes.config')
 const DivisionRouter = require('../../entities/divisions/routes.config')
 const ProfilesRouter = require('../../entities/profiles/routes.config')
+const DiscountsRouter= require('../../entities/discount/routes.config')
 
 const authHeader = (req, res, next) => {
         res.header('Access-Control-Allow-Origin', '*');
@@ -114,6 +115,7 @@ exports.setRoutes = (app) => {
     OrdersRouter.routesConfig(app);
     DivisionRouter.routesConfig(app);
     ProfilesRouter.routesConfig(app);
+    DiscountsRouter.routesConfig(app)
 
 }
 
