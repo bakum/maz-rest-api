@@ -44,6 +44,21 @@ exports.deleteWhenNull = async (model) => {
         },
     })
 }
+exports.clearSync = async (model, id= undefined) => {
+    let where = {}
+    if (id) {
+        where.id = id
+    }
+    where.sync = 1
+    return await model.update(
+        {
+            sync: 0
+        },
+        {
+            where: where,
+        }
+    )
+}
 
 exports.updateOrCreate = async (model, where, newItem) => {
     let foundItem = await model.findOne({where})

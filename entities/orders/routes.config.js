@@ -16,6 +16,11 @@ exports.routesConfig = function (app) {
         PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
         OrdersController.updateOrCreateOrder
     ]);
+    app.post(`${uri}orders/clearsync`, [
+        ValidationMiddleware.validJWTNeeded,
+        PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
+        OrdersController.clearSyncOrders
+    ]);
     app.delete(`${uri}orders`, [
         ValidationMiddleware.validJWTNeeded,
         PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),

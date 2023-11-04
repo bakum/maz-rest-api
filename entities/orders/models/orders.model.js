@@ -48,6 +48,11 @@ const Orders = DB.define("Orders",
             type: DataTypes.DOUBLE,
             allowNull: true
         },
+        discount: {
+            type: DataTypes.DECIMAL,
+            allowNull: true,
+            defaultValue: 0.0
+        },
         coment: {
             type: DataTypes.TEXT,
             allowNull: true
@@ -201,6 +206,10 @@ exports.updateOrCreateOrder = (where, newItem) => {
         }
     }
     return connection.updateOrCreate(Orders, where, newItem)
+}
+exports.clearSyncOrders = (where) => {
+    let id = where.id || undefined
+    return connection.clearSync(Orders, id)
 }
 exports.updateOrCreateOrderItem = (where, newItem) => {
     return connection.updateOrCreate(OrderItems, where, newItem)

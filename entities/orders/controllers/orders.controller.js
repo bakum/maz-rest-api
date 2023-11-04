@@ -3,7 +3,7 @@ const OrdersModel = require('../models/orders.model'),
 
 
 exports.listOfOrders = (req, res) => {
-    let opt= utility.getOptions(req)
+    let opt = utility.getOptions(req)
     OrdersModel.listOfOrders(opt)
         .then((result) => {
             res.status(200).send(result)
@@ -12,7 +12,7 @@ exports.listOfOrders = (req, res) => {
     })
 }
 exports.listOfOrderItems = (req, res) => {
-    let opt= utility.getOptions(req)
+    let opt = utility.getOptions(req)
     OrdersModel.listOfOrderItems(opt)
         .then((result) => {
             res.status(200).send(result)
@@ -21,7 +21,7 @@ exports.listOfOrderItems = (req, res) => {
     })
 }
 exports.listOfDelivery = (req, res) => {
-    let opt= utility.getOptions(req)
+    let opt = utility.getOptions(req)
     OrdersModel.listOfDelivery(opt)
         .then((result) => {
             res.status(200).send(result)
@@ -32,16 +32,25 @@ exports.listOfDelivery = (req, res) => {
 exports.updateOrCreateOrder = (req, res) => {
     let where = utility.where(req)
     //where.uuid = req.body.uuid
-    OrdersModel.updateOrCreateOrder(where,req.body).then((result) => {
+    OrdersModel.updateOrCreateOrder(where, req.body).then((result) => {
         res.status(200).send(result)
     }).catch(reason => {
         res.status(500).send(reason)
     })
 }
+exports.clearSyncOrders = async (req, res) => {
+    let where = utility.where(req)
+    try {
+        let result = await OrdersModel.clearSyncOrders(where)
+        res.status(200).send(result)
+    } catch (e) {
+        res.status(500).send(e.message)
+    }
+}
 exports.updateOrCreateOrderItem = (req, res) => {
     let where = utility.where(req)
     //where.uuid = req.body.uuid
-    OrdersModel.updateOrCreateOrderItem(where,req.body).then((result) => {
+    OrdersModel.updateOrCreateOrderItem(where, req.body).then((result) => {
         res.status(200).send(result)
     }).catch(reason => {
         res.status(500).send(reason)
@@ -50,7 +59,7 @@ exports.updateOrCreateOrderItem = (req, res) => {
 exports.updateOrCreateDelivery = (req, res) => {
     let where = utility.where(req)
     //where.uuid = req.body.uuid
-    OrdersModel.updateOrCreateDelivery(where,req.body).then((result) => {
+    OrdersModel.updateOrCreateDelivery(where, req.body).then((result) => {
         res.status(200).send(result)
     }).catch(reason => {
         res.status(500).send(reason)
