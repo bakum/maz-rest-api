@@ -16,4 +16,9 @@ exports.routesConfig = (app) => {
         PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
         DiscountController.updateOrCreateDiscounts
     ]);
+    app.delete(`${uri}discount`, [
+        ValidationMiddleware.validJWTNeeded,
+        PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
+        DiscountController.deleteDiscount
+    ]);
 }

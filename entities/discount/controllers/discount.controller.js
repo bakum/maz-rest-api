@@ -19,3 +19,15 @@ exports.updateOrCreateDiscounts = (req, res) => {
         res.status(500).send(reason)
     })
 }
+exports.deleteDiscount = (req, res) => {
+    let where = utility.where(req)
+    DiscountModel.deleteDiscount(where).then(result => {
+        res.send({
+            deleted: result
+        })
+    }).catch(reason => {
+        res.status(500).send(
+            {error: reason.message}
+        )
+    })
+}

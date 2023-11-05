@@ -31,3 +31,6 @@ exports.listOfDiscounts = (options) => {
 exports.updateOrCreateDiscounts = (where, newItem) => {
     return connection.updateOrCreate(Discount, where, newItem)
 }
+exports.deleteDiscount = (where) => {
+    return connection.delete(Discount, where)
+}
