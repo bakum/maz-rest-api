@@ -111,6 +111,16 @@ exports.deleteGoodsWhenUUIDNull = (req, res) => {
     })
 }
 
+exports.getGoodsDoubles = (req, res) => {
+    GoodsModel.getDoublesGoods().then(result => {
+        res.status(200).send(result)
+    }).catch(reason => {
+        res.status(500).send(
+            {error: reason.message}
+        )
+    })
+}
+
 exports.listOfGroups = (req, res) => {
     let opt = utility.getOptions(req)
     GoodsModel.listOfGroups(opt)

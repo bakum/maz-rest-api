@@ -1,4 +1,4 @@
-const {DataTypes, Sequelize} = require('sequelize'),
+const {DataTypes, Sequelize, QueryTypes} = require('sequelize'),
     connection = require('../../../common/services/sequelize.service'),
     DB = connection.db,
     goods_img_store_to = '/images/goods/',
@@ -462,3 +462,9 @@ exports.findMainSetting = () => {
         }
     })
 }
+
+exports.getDoublesGoods = async () => {
+    return await DB.query('With data as (Select *, row_number() over (partition by name order by id) as rowNumber from catalog) Select * from data where rowNumber > 1 order by uuid desc, catalog_group desc',
+        {raw: true, type: QueryTypes.SELECT})
+}
+
