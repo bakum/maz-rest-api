@@ -84,6 +84,14 @@ const Orders = DB.define("Orders",
         warehouse_code: {
             type: DataTypes.STRING(38),
             allowNull: true
+        },
+        city: {
+            type: DataTypes.STRING(100),
+            allowNull: true
+        },
+        warehouse: {
+            type: DataTypes.STRING(150),
+            allowNull: true
         }
     },
     {
