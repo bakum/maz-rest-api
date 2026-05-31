@@ -1,5 +1,6 @@
 const UserModel = require('../../entities/users/models/users.model');
-const crypto = require('crypto'), conf = require('config').get('permissionLevels');
+const {verifyDjangoPassword} = require('../utils/django-password');
+const conf = require('config').get('permissionLevels');
 const ADMIN = conf.get('ADMIN');
 const NORMAL_USER = conf.get('NORMAL_USER');
 const PAID_USER = conf.get('PAID_USER')
@@ -31,10 +32,8 @@ exports.isPasswordAndUserMatch = (req, res, next) => {
             if (data.count === 0) {
                 res.status(404).send({});
             } else {
-                let passwordFields = data.rows[0].dataValues.password.split('$');
-                //let salt = passwordFields[1];
-                //let hash = crypto.createHmac('sha512', salt).update(req.body.password).digest("base64");
-                if (req.body.password === passwordFields[3]) {
+                const storedPassword = data.rows[0].dataValues.password;
+                if (verifyDjangoPassword(req.body.password, storedPassword)) {
                     req.body = {
                         userId: data.rows[0].dataValues.id,
                         email: data.rows[0].dataValues.email,
